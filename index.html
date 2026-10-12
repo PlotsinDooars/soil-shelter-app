@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Soil & Shelter CRM</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #108e48;
+      --primary-dark: #096833;
+      --blue: #1c75bc;
+      --orange: #e67e22;
+      --purple: #8e44ad;
+      --bg: #f4f7f6;
+      --card-bg: #ffffff;
+      --text-dark: #2c3e50;
+      --text-muted: #7f8c8d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    body { background-color: var(--bg); color: var(--text-dark); padding-bottom: 90px; }
+
+    /* Top Bar & Hero Banner */
+    .header-banner {
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80') center/cover;
+      color: #fff;
+      padding: 16px 16px 36px 16px;
+      border-bottom-left-radius: 28px;
+      border-bottom-right-radius: 28px;
+    }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .brand-title { font-size: 19px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .sync-badge { font-size: 11px; background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
+    .pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: #2ecc71; }
+    .tagline-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 500; }
+    .location-tag { background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 12px; font-size: 12px; }
+
+    /* Status Bar */
+    .sync-status-card {
+      margin: -20px 16px 16px 16px;
+      background: #fff;
+      padding: 12px 16px;
+      border-radius: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    }
+
+    /* KPI Cards */
+    .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px 16px 16px; }
+    .kpi-card {
+      border-radius: 18px;
+      padding: 14px;
+      color: #fff;
+      position: relative;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .kpi-card.blue { background: linear-gradient(135deg, #1c75bc, #2980b9); }
+    .kpi-card.green { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+    .kpi-card.orange { background: linear-gradient(135deg, #e67e22, #f39c12); }
+    .kpi-card.purple { background: linear-gradient(135deg, #8e44ad, #9b59b6); }
+    .kpi-val { font-size: 26px; font-weight: 700; line-height: 1.1; margin: 4px 0; }
+    .kpi-lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.9; }
+    .kpi-sub { font-size: 11px; opacity: 0.85; }
+
+    /* Big Action Buttons */
+    .action-container { padding: 0 16px 16px 16px; display: flex; flex-direction: column; gap: 10px; }
+    .action-btn-card {
+      background: #fff;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .action-left { display: flex; align-items: center; gap: 14px; }
+    .action-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .action-icon.blue { background: #e8f4fc; color: #1c75bc; }
+    .action-icon.pink { background: #fde8ed; color: #e84393; }
+    .action-icon.green { background: #e8f8f0; color: #27ae60; }
+    .action-title { font-weight: 700; font-size: 15px; }
+    .action-desc { font-size: 12px; color: var(--text-muted); }
+
+    /* Task Box */
+    .today-box { margin: 0 16px 20px 16px; background: #fff; border-radius: 16px; padding: 14px 16px; border-left: 5px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .today-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; font-weight: 700; }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 68px;
+      background: #064420;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+    }
+    .nav-tab { color: #bad7c3; text-align: center; font-size: 11px; cursor: pointer; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+    .nav-tab.active { color: #fff; font-weight: 700; }
+    .nav-tab i { font-size: 18px; }
+
+    /* Views & Modals */
+    .page-view { display: none; padding: 16px; }
+    .page-view.active { display: block; }
+    .modal { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; padding: 20px; }
+    .modal.active { display: block; }
+    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid #eee; padding-bottom: 12px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 5px; color: #333; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px;
+    }
+    .submit-btn { width: 100%; background: var(--primary); color: #fff; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+
+    /* Item Card in List Views */
+    .item-card { background: #fff; border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+    .card-actions { display: flex; gap: 8px; margin-top: 10px; padding-top: 8px; border-top: 1px dashed #eee; }
+    .btn-action { padding: 6px 12px; border-radius: 6px; font-size: 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; border: none; font-weight: 600; }
+    .btn-call { background: #e8f4fc; color: #1c75bc; }
+    .btn-wa { background: #e8f8f0; color: #27ae60; }
+    .btn-del { background: #fde8ed; color: #e84393; }
+  </style>
+</head>
+<body>
+
+  <!-- DASHBOARD VIEW -->
+  <div id="view-dashboard" class="page-view active">
+    <div class="header-banner">
+      <div class="top-bar">
+        <div class="brand-title"><i class="fa-solid fa-leaf text-success"></i> SOIL & SHELTER</div>
+        <div class="sync-badge"><div class="pulse-dot"></div><span id="sync-time">Live</span></div>
+      </div>
+      <div class="tagline-row">
+        <span>Better Plots Brighter Future</span>
+        <span class="location-tag"><i class="fa-solid fa-location-dot"></i> Dooars & North Bengal</span>
+      </div>
+    </div>
+
+    <div class="sync-status-card">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <i class="fa-solid fa-file-excel text-success"></i>
+        <span id="status-text">Connected to Google Sheets</span>
+      </div>
+      <i class="fa-solid fa-rotate text-muted" style="cursor:pointer;" onclick="fetchData()"></i>
+    </div>
+
+    <!-- 2x2 KPI Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card blue" onclick="switchView('clients')">
+        <div>
+          <div class="kpi-lbl">Total Clients</div>
+          <div class="kpi-val" id="cnt-clients">0</div>
+          <div class="kpi-sub">Live Count</div>
+        </div>
+        <i class="fa-solid fa-users fa-2x" style="opacity:0.3;"></i>
+      </div>
+      <div class="kpi-card green" onclick="switchView('properties')">
+        <div>
+          <div class="kpi-lbl">Total Properties</div>
+          <div class="kpi-val" id="cnt-properties">0</div>
+          <div class="kpi-sub">Active Listings</div>
+        </div>
+        <i class="fa-solid fa-house fa-2x" style="opacity:0.3;"></i>
+      </div>
+      <div class="kpi-card orange" onclick="switchView('tasks')">
+        <div>
+          <div class="kpi-lbl">Total Task List</div>
+          <div class="kpi-val" id="cnt-tasks">0</div>
+          <div class="kpi-sub">Tasks Logged</div>
+        </div>
+        <i class="fa-solid fa-clipboard-list fa-2x" style="opacity:0.3;"></i>
+      </div>
+      <div class="kpi-card purple" onclick="switchView('followups')">
+        <div>
+          <div class="kpi-lbl">Follow-ups Due</div>
+          <div class="kpi-val" id="cnt-followups">0</div>
+          <div class="kpi-sub" id="cnt-overdue">0 Overdue</div>
+        </div>
+        <i class="fa-solid fa-bell fa-2x" style="opacity:0.3;"></i>
+      </div>
+    </div>
+
+    <!-- Direct Add Buttons -->
+    <div class="action-container">
+      <div class="action-btn-card" onclick="openModal('modal-client')">
+        <div class="action-left">
+          <div class="action-icon blue"><i class="fa-solid fa-user-plus"></i></div>
+          <div>
+            <div class="action-title">+ ADD CLIENTS</div>
+            <div class="action-desc">Create new client & manage details</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right text-muted"></i>
+      </div>
+      <div class="action-btn-card" onclick="openModal('modal-task')">
+        <div class="action-left">
+          <div class="action-icon pink"><i class="fa-solid fa-calendar-plus"></i></div>
+          <div>
+            <div class="action-title">+ ADD TASK</div>
+            <div class="action-desc">Schedule visit, call or other task</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right text-muted"></i>
+      </div>
+      <div class="action-btn-card" onclick="openModal('modal-property')">
+        <div class="action-left">
+          <div class="action-icon green"><i class="fa-solid fa-house-medical"></i></div>
+          <div>
+            <div class="action-title">+ ADD PROPERTY</div>
+            <div class="action-desc">Add new property & manage listings</div>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right text-muted"></i>
+      </div>
+    </div>
+
+    <!-- Today's Task List -->
+    <div class="today-box">
+      <div class="today-header">
+        <span><i class="fa-regular fa-calendar-check text-success"></i> TODAY'S TASK LIST</span>
+        <span style="font-size:11px; font-weight:normal; color:#888;">Plan Today, Grow Tomorrow</span>
+      </div>
+      <div id="today-tasks-container" style="font-size:13px; color:#555;">No tasks scheduled for today.</div>
+    </div>
+  </div>
+
+  <!-- CLIENTS VIEW -->
+  <div id="view-clients" class="page-view">
+    <h3>Client Directory</h3>
+    <div id="client-list"></div>
+  </div>
+
+  <!-- PROPERTIES VIEW -->
+  <div id="view-properties" class="page-view">
+    <h3>Property Listings</h3>
+    <div id="property-list"></div>
+  </div>
+
+  <!-- TASKS VIEW -->
+  <div id="view-tasks" class="page-view">
+    <h3>All Tasks</h3>
+    <div id="task-list"></div>
+  </div>
+
+  <!-- FOLLOW-UPS VIEW -->
+  <div id="view-followups" class="page-view">
+    <h3>Pending Follow-Ups</h3>
+    <div id="followup-list"></div>
+  </div>
+
+  <!-- ADD CLIENT MODAL -->
+  <div id="modal-client" class="modal">
+    <div class="modal-head">
+      <h3>+ Add Client</h3>
+      <i class="fa-solid fa-xmark fa-lg" onclick="closeModal('modal-client')"></i>
+    </div>
+    <form id="form-client" onsubmit="submitForm(event, 'Client')">
+      <div class="form-group"><label>Client Name</label><input type="text" name="Name" required></div>
+      <div class="form-group"><label>Phone</label><input type="tel" name="Phone" required></div>
+      <div class="form-group"><label>Address</label><input type="text" name="Address"></div>
+      <div class="form-group"><label>Location Preference</label><input type="text" name="Location" placeholder="e.g. Oodlabari, Malbazar"></div>
+      <div class="form-group"><label>Area Category</label>
+        <select name="Area Category"><option>PLAIN AREA</option><option>HILLS AREA</option><option>FOOT HILLS</option><option>ALL</option></select>
+      </div>
+      <div class="form-group"><label>Max Budget (₹)</label><input type="number" name="Max Budget"></div>
+      <div class="form-group"><label>Assigned Team</label>
+        <select name="Assigned Team"><option>Bikash</option><option>Anwar</option><option>Both</option></select>
+      </div>
+      <div class="form-group"><label>Lead Status</label>
+        <select name="Lead Status"><option>NEW</option><option>IN CONTACT</option><option>SITE VISIT PLANNING</option><option>NEGOTIATION</option></select>
+      </div>
+      <div class="form-group"><label>Next Follow Up</label><input type="date" name="Next Follow Up"></div>
+      <button type="submit" class="submit-btn">Save Client</button>
+    </form>
+  </div>
+
+  <!-- ADD PROPERTY MODAL -->
+  <div id="modal-property" class="modal">
+    <div class="modal-head">
+      <h3>+ Add Property</h3>
+      <i class="fa-solid fa-xmark fa-lg" onclick="closeModal('modal-property')"></i>
+    </div>
+    <form id="form-property" onsubmit="submitForm(event, 'Property')">
+      <div class="form-group"><label>Key Man / Contact Person</label><input type="text" name="Key Man" required></div>
+      <div class="form-group"><label>Phone</label><input type="tel" name="Phone" required></div>
+      <div class="form-group"><label>Location</label><input type="text" name="Location" placeholder="e.g. Oodlabari, Gajoldoba" required></div>
+      <div class="form-group"><label>Size & Unit</label><input type="number" name="Size" placeholder="Size" style="width:48%; display:inline;"> 
+        <select name="Size Unit" style="width:48%; display:inline;"><option>Decimal</option><option>Acre</option><option>Katha</option><option>Bigha</option></select>
+      </div>
+      <div class="form-group"><label>Total Price (₹)</label><input type="number" name="Total Price"></div>
+      <div class="form-group"><label>Available Status</label>
+        <select name="Available Status"><option>AVAILABLE</option><option>HOLD</option><option>SOLD</option></select>
+      </div>
+      <button type="submit" class="submit-btn">Save Property</button>
+    </form>
+  </div>
+
+  <!-- ADD TASK MODAL -->
+  <div id="modal-task" class="modal">
+    <div class="modal-head">
+      <h3>+ Add Task</h3>
+      <i class="fa-solid fa-xmark fa-lg" onclick="closeModal('modal-task')"></i>
+    </div>
+    <form id="form-task" onsubmit="submitForm(event, 'Task')">
+      <div class="form-group"><label>Date</label><input type="date" name="Date" required></div>
+      <div class="form-group"><label>Task Description</label><input type="text" name="Task" required></div>
+      <div class="form-group"><label>Assigned Team</label>
+        <select name="Assigned Team"><option>Bikash</option><option>Anwar</option><option>Both</option></select>
+      </div>
+      <div class="form-group"><label>Task Status</label>
+        <select name="Task Status"><option>Post Pond</option><option>Done</option><option>Cancel</option></select>
+      </div>
+      <div class="form-group"><label>Next Follow up Date</label><input type="date" name="Next Follow up Date"></div>
+      <button type="submit" class="submit-btn">Save Task</button>
+    </form>
+  </div>
+
+  <!-- BOTTOM NAVIGATION -->
+  <div class="bottom-nav">
+    <div class="nav-tab active" onclick="switchView('dashboard')"><i class="fa-solid fa-house"></i>Dashboard</div>
+    <div class="nav-tab" onclick="switchView('clients')"><i class="fa-solid fa-users"></i>Clients</div>
+    <div class="nav-tab" onclick="switchView('properties')"><i class="fa-solid fa-tree"></i>Properties</div>
+    <div class="nav-tab" onclick="switchView('tasks')"><i class="fa-solid fa-clipboard-check"></i>Tasks</div>
+    <div class="nav-tab" onclick="switchView('followups')"><i class="fa-solid fa-calendar-days"></i>Follow-ups</div>
+  </div>
+
+  <script>
+    // PASTE YOUR SCRIPT URL HERE:
+    const API_URL = "https://script.google.com/macros/s/AKfycbyFvWyPLax_fS5d4EQJ0eXoXuhpAPZ4vGlR68GVVuLsgCCDpHlLNXK5JHaVqG-e5J4gKg/exec";
+
+    let db = { Client: [], Property: [], Task: [] };
+
+    async function fetchData() {
+      document.getElementById('status-text').innerText = "Syncing with Google Sheets...";
+      try {
+        const res = await fetch(API_URL);
+        db = await res.json();
+        updateUI();
+        document.getElementById('status-text').innerText = "Synced with Google Sheets";
+        document.getElementById('sync-time').innerText = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      } catch (err) {
+        document.getElementById('status-text').innerText = "Sync failed (Check connection/URL)";
+      }
+    }
+
+    function updateUI() {
+      const clients = db.Client || [];
+      const properties = db.Property || [];
+      const tasks = db.Task || [];
+
+      document.getElementById('cnt-clients').innerText = clients.length;
+      document.getElementById('cnt-properties').innerText = properties.length;
+      document.getElementById('cnt-tasks').innerText = tasks.length;
+
+      const todayStr = new Date().toISOString().split('T')[0];
+      const dueFollowUps = clients.filter(c => c['Next Follow Up'] && c['Next Follow Up'].toString().includes(todayStr));
+      document.getElementById('cnt-followups').innerText = dueFollowUps.length;
+
+      const todayTasks = tasks.filter(t => t.Date && t.Date.toString().includes(todayStr));
+      const todayContainer = document.getElementById('today-tasks-container');
+      if (todayTasks.length > 0) {
+        todayContainer.innerHTML = todayTasks.map(t => `<div>• <b>${t.Task}</b> (${t['Assigned Team'] || ''})</div>`).join('');
+      } else {
+        todayContainer.innerHTML = "No tasks scheduled for today.";
+      }
+
+      renderClients();
+      renderProperties();
+      renderTasks();
+      renderFollowups(dueFollowUps);
+    }
+
+    function renderClients() {
+      const el = document.getElementById('client-list');
+      el.innerHTML = (db.Client || []).map(c => `
+        <div class="item-card">
+          <h4>${c.Name || 'Unnamed'} <span style="font-size:11px; color:#888;">#${c['Client ID']}</span></h4>
+          <p style="font-size:12px; color:#555;">📍 ${c.Location || 'N/A'} | Budget: ₹${c['Max Budget'] || '-'}</p>
+          <div class="card-actions">
+            <a href="tel:${c.Phone}" class="btn-action btn-call"><i class="fa-solid fa-phone"></i> Call</a>
+            <a href="https://wa.me/91${c.Phone}" target="_blank" class="btn-action btn-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+            <button onclick="deleteRecord('Client', ${c['Client ID']})" class="btn-action btn-del"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderProperties() {
+      const el = document.getElementById('property-list');
+      el.innerHTML = (db.Property || []).map(p => `
+        <div class="item-card">
+          <h4>${p.Location || 'Unnamed Area'} <span style="font-size:11px; color:#888;">#${p['Property ID']}</span></h4>
+          <p style="font-size:12px; color:#555;">Key: ${p['Key Man'] || '-'} | Size: ${p.Size || '-'} ${p['Size Unit'] || ''} | ₹${p['Total Price'] || '-'}</p>
+          <div class="card-actions">
+            <a href="tel:${p.Phone}" class="btn-action btn-call"><i class="fa-solid fa-phone"></i> Call</a>
+            <a href="https://wa.me/91${p.Phone}" target="_blank" class="btn-action btn-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+            <button onclick="deleteRecord('Property', ${p['Property ID']})" class="btn-action btn-del"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderTasks() {
+      const el = document.getElementById('task-list');
+      el.innerHTML = (db.Task || []).map(t => `
+        <div class="item-card">
+          <h4>${t.Task || 'Task'}</h4>
+          <p style="font-size:12px; color:#555;">📅 ${t.Date || '-'} | Assigned: ${t['Assigned Team'] || '-'}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderFollowups(items) {
+      const el = document.getElementById('followup-list');
+      if (items.length === 0) {
+        el.innerHTML = "<p style='color:#777; font-size:13px;'>No follow-ups due right now.</p>";
+        return;
+      }
+      el.innerHTML = items.map(c => `
+        <div class="item-card">
+          <h4>${c.Name} (Due Today)</h4>
+          <p style="font-size:12px; color:#555;">Phone: ${c.Phone}</p>
+          <div class="card-actions">
+            <a href="tel:${c.Phone}" class="btn-action btn-call"><i class="fa-solid fa-phone"></i> Call</a>
+            <a href="https://wa.me/91${c.Phone}" target="_blank" class="btn-action btn-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function submitForm(e, sheet) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((val, key) => { data[key] = val; });
+
+      document.getElementById('status-text').innerText = "Saving to Google Sheets...";
+      await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "add", sheet: sheet, data: data })
+      });
+      form.reset();
+      closeModal('modal-' + sheet.toLowerCase());
+      fetchData();
+    }
+
+    async function deleteRecord(sheet, id) {
+      if (!confirm("Are you sure you want to delete this record?")) return;
+      document.getElementById('status-text').innerText = "Deleting...";
+      await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "delete", sheet: sheet, id: id })
+      });
+      fetchData();
+    }
+
+    function switchView(viewName) {
+      document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+      const targetView = document.getElementById('view-' + viewName);
+      if (targetView) targetView.classList.add('active');
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+    fetchData();
+  </script>
+</body>
+</html>
