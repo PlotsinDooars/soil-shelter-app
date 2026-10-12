@@ -13,7 +13,7 @@
       --blue: #1c75bc;
       --orange: #e67e22;
       --purple: #8e44ad;
-      --bg: #f3f6f4;
+      --bg: #f4f7f5;
       --card-bg: #ffffff;
       --text-dark: #222f3e;
       --text-muted: #718093;
@@ -21,9 +21,9 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
     body { background-color: var(--bg); color: var(--text-dark); padding-bottom: 90px; }
 
-    /* Header Banner */
+    /* Top Hero Header */
     .header-banner {
-      background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80') center/cover;
+      background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80') center/cover;
       color: #fff;
       padding: 16px 16px 36px 16px;
       border-bottom-left-radius: 28px;
@@ -81,6 +81,7 @@
       cursor: pointer;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       border-left: 5px solid transparent;
+      user-select: none;
     }
     .action-btn-card.blue { border-left-color: var(--blue); }
     .action-btn-card.pink { border-left-color: #e84393; }
@@ -97,24 +98,39 @@
     .today-box { margin: 0 16px 20px 16px; background: #fff; border-radius: 16px; padding: 14px 16px; border-left: 5px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
     .today-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 13px; font-weight: 700; }
 
-    /* Modals / Full Screen Forms */
-    .modal { display: none; position: fixed; inset: 0; background: #fff; z-index: 2000; overflow-y: auto; padding: 20px 16px 80px 16px; }
-    .modal.active { display: block; }
+    /* Bulletproof Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #ffffff;
+      z-index: 99999;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 20px 16px 90px 16px;
+    }
     .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 2px solid #eee; padding-bottom: 12px; }
+    .modal-head h3 { font-size: 18px; color: var(--text-dark); }
+    .close-icon { font-size: 22px; cursor: pointer; color: #e74c3c; padding: 6px; }
+
+    /* Forms */
     .form-group { margin-bottom: 14px; }
     .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 5px; color: #2d3436; }
     .form-group input, .form-group select, .form-group textarea {
-      width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 13px; outline: none;
+      width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 13px; outline: none; background: #fff;
     }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .chip-container { display: flex; flex-wrap: wrap; gap: 6px; max-height: 140px; overflow-y: auto; padding: 6px; border: 1px solid #eee; border-radius: 8px; }
+    .chip-container { display: flex; flex-wrap: wrap; gap: 6px; max-height: 140px; overflow-y: auto; padding: 6px; border: 1px solid #e1e8ed; border-radius: 8px; background: #fafbfc; }
     .chip-item {
-      font-size: 11px; padding: 5px 9px; border-radius: 16px; background: #eee; cursor: pointer; user-select: none;
+      font-size: 11px; padding: 5px 9px; border-radius: 16px; background: #edf2f7; cursor: pointer; user-select: none; border: 1px solid #d2d6dc;
     }
-    .chip-item.selected { background: var(--primary); color: #fff; font-weight: 600; }
-    .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 12px; }
+    .chip-item.selected { background: var(--primary); color: #fff; font-weight: 600; border-color: var(--primary-dark); }
+    .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; }
 
-    /* Bottom Nav */
+    /* Bottom Navigation */
     .bottom-nav {
       position: fixed;
       bottom: 0; left: 0; right: 0;
@@ -124,13 +140,13 @@
       justify-content: space-around;
       align-items: center;
       box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
-      z-index: 1000;
+      z-index: 10000;
     }
     .nav-tab { color: #bad7c3; text-align: center; font-size: 10px; cursor: pointer; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
     .nav-tab.active { color: #fff; font-weight: 700; }
     .nav-tab i { font-size: 17px; }
 
-    /* Pages */
+    /* Page Views */
     .page-view { display: none; padding: 16px; }
     .page-view.active { display: block; }
     .item-card { background: #fff; border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
@@ -140,13 +156,13 @@
     .btn-wa { background: #e8f8f0; color: #27ae60; }
     .btn-edit { background: #fef5e7; color: #e67e22; }
     .btn-del { background: #fde8ed; color: #e84393; }
-    .submit-btn { width: 100%; background: var(--primary); color: #fff; padding: 14px; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+    .submit-btn { width: 100%; background: var(--primary); color: #fff; padding: 14px; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 12px; }
     .match-pill { display: inline-block; background: #e8f4fc; color: #1c75bc; padding: 3px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; cursor: pointer; margin: 2px; }
   </style>
 </head>
 <body>
 
-  <!-- DASHBOARD -->
+  <!-- 1. DASHBOARD VIEW -->
   <div id="view-dashboard" class="page-view active">
     <div class="header-banner">
       <div class="top-bar">
@@ -187,17 +203,17 @@
       </div>
     </div>
 
-    <!-- Actions -->
+    <!-- Big Action Buttons -->
     <div class="action-container">
-      <div class="action-btn-card blue" onclick="openClientModal()">
+      <div class="action-btn-card blue" onclick="openClientModalSafe()">
         <div class="action-left"><div class="action-icon blue"><i class="fa-solid fa-user-plus"></i></div><div><div class="action-title">+ ADD CLIENTS</div><div class="action-desc">Create new client & manage details</div></div></div>
         <i class="fa-solid fa-chevron-right text-muted"></i>
       </div>
-      <div class="action-btn-card pink" onclick="openTaskModal()">
+      <div class="action-btn-card pink" onclick="openTaskModalSafe()">
         <div class="action-left"><div class="action-icon pink"><i class="fa-solid fa-calendar-plus"></i></div><div><div class="action-title">+ ADD TASK</div><div class="action-desc">Schedule visit, call or other task</div></div></div>
         <i class="fa-solid fa-chevron-right text-muted"></i>
       </div>
-      <div class="action-btn-card green" onclick="openPropertyModal()">
+      <div class="action-btn-card green" onclick="openPropertyModalSafe()">
         <div class="action-left"><div class="action-icon green"><i class="fa-solid fa-house-medical"></i></div><div><div class="action-title">+ ADD PROPERTY</div><div class="action-desc">Add new property & manage listings</div></div></div>
         <i class="fa-solid fa-chevron-right text-muted"></i>
       </div>
@@ -213,36 +229,36 @@
     </div>
   </div>
 
-  <!-- CLIENTS VIEW -->
+  <!-- 2. CLIENTS VIEW -->
   <div id="view-clients" class="page-view">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <h3>Clients (<span id="client-total-badge">0</span>)</h3>
-      <button class="btn-action btn-wa" onclick="openClientModal()">+ Add New</button>
+      <button class="btn-action btn-wa" onclick="openClientModalSafe()">+ Add New</button>
     </div>
     <input type="text" placeholder="Search by name, phone, location..." onkeyup="filterList(this.value, 'client-list')" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc; margin-bottom:12px;">
     <div id="client-list"></div>
   </div>
 
-  <!-- PROPERTIES VIEW -->
+  <!-- 3. PROPERTIES VIEW -->
   <div id="view-properties" class="page-view">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <h3>Properties (<span id="prop-total-badge">0</span>)</h3>
-      <button class="btn-action btn-wa" onclick="openPropertyModal()">+ Add New</button>
+      <button class="btn-action btn-wa" onclick="openPropertyModalSafe()">+ Add New</button>
     </div>
     <input type="text" placeholder="Search by location, key man, size..." onkeyup="filterList(this.value, 'property-list')" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc; margin-bottom:12px;">
     <div id="property-list"></div>
   </div>
 
-  <!-- TASKS VIEW -->
+  <!-- 4. TASKS VIEW -->
   <div id="view-tasks" class="page-view">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <h3>All Tasks</h3>
-      <button class="btn-action btn-wa" onclick="openTaskModal()">+ Add Task</button>
+      <button class="btn-action btn-wa" onclick="openTaskModalSafe()">+ Add Task</button>
     </div>
     <div id="task-list"></div>
   </div>
 
-  <!-- FOLLOW-UPS VIEW -->
+  <!-- 5. FOLLOW-UPS VIEW -->
   <div id="view-followups" class="page-view">
     <h3>Follow-ups Due & Overdue</h3>
     <div id="followup-list" style="margin-top:12px;"></div>
@@ -252,7 +268,7 @@
   <div id="modal-client" class="modal">
     <div class="modal-head">
       <h3 id="client-modal-title">+ Add Client</h3>
-      <i class="fa-solid fa-xmark fa-xl" onclick="closeModal('modal-client')"></i>
+      <i class="fa-solid fa-xmark close-icon" onclick="closeModalSafe('modal-client')"></i>
     </div>
     <form id="form-client" onsubmit="saveClient(event)">
       <input type="hidden" name="Client ID" id="client-id">
@@ -266,14 +282,14 @@
       <div class="form-group"><label>Phone Number *</label><input type="tel" name="Phone" id="c-phone" placeholder="e.g. 9876543210" required></div>
       <div class="form-group"><label>Address</label><input type="text" name="Address" id="c-address"></div>
       
-      <!-- Intended Use Multi-select -->
+      <!-- Intended Use Multi-select Chips -->
       <div class="form-group">
         <label>Intended Use (Select Multiple)</label>
         <div class="chip-container" id="client-intended-chips"></div>
         <input type="text" id="c-intended-other" placeholder="Specify if Other..." style="display:none; margin-top:6px;">
       </div>
 
-      <!-- Specialty Multi-select -->
+      <!-- Specialty Multi-select Chips -->
       <div class="form-group">
         <label>Specialty Preference (Select Multiple)</label>
         <div class="chip-container" id="client-specialty-chips"></div>
@@ -289,7 +305,7 @@
         </div>
       </div>
 
-      <!-- Location Multi-select -->
+      <!-- Location Multi-select Chips -->
       <div class="form-group">
         <label>Location Preferences</label>
         <div class="chip-container" id="client-location-chips"></div>
@@ -320,7 +336,7 @@
   <div id="modal-property" class="modal">
     <div class="modal-head">
       <h3 id="prop-modal-title">+ Add Property</h3>
-      <i class="fa-solid fa-xmark fa-xl" onclick="closeModal('modal-property')"></i>
+      <i class="fa-solid fa-xmark close-icon" onclick="closeModalSafe('modal-property')"></i>
     </div>
     <form id="form-property" onsubmit="saveProperty(event)">
       <input type="hidden" name="Property ID" id="prop-id">
@@ -335,7 +351,7 @@
         <div class="form-group"><label>Phone *</label><input type="tel" name="Phone" id="p-phone" required></div>
       </div>
 
-      <!-- Property Specialty Multi-select -->
+      <!-- Specialty Multi-select -->
       <div class="form-group">
         <label>Property Specialty</label>
         <div class="chip-container" id="prop-specialty-chips"></div>
@@ -415,7 +431,7 @@
   <div id="modal-task" class="modal">
     <div class="modal-head">
       <h3 id="task-modal-title">+ Add Task</h3>
-      <i class="fa-solid fa-xmark fa-xl" onclick="closeModal('modal-task')"></i>
+      <i class="fa-solid fa-xmark close-icon" onclick="closeModalSafe('modal-task')"></i>
     </div>
     <form id="form-task" onsubmit="saveTask(event)">
       <input type="hidden" name="Task ID" id="task-id">
@@ -445,7 +461,7 @@
     </form>
   </div>
 
-  <!-- BOTTOM BAR -->
+  <!-- BOTTOM BAR NAVIGATION -->
   <div class="bottom-nav">
     <div class="nav-tab active" onclick="switchView('dashboard')"><i class="fa-solid fa-house"></i>Dashboard</div>
     <div class="nav-tab" onclick="switchView('clients')"><i class="fa-solid fa-users"></i>Clients</div>
@@ -456,7 +472,7 @@
 
   <script>
     // ⬇️ REPLACE THIS WITH YOUR DEPLOYED GOOGLE APPS SCRIPT URL:
-    const API_URL = "https://script.google.com/macros/s/AKfycbxqndUM7qkNaNQs-4JK0nryDpkwa7c-euBJJzBpL6sO/dev";
+    const API_URL = "https://script.google.com/macros/s/AKfycbyFvWyPLax_fS5d4EQJ0eXoXuhpAPZ4vGlR68GVVuLsgCCDpHlLNXK5JHaVqG-e5J4gKg/exec";
 
     const INTENDED_USES = ['RESIDENT', 'SECOND HOME', 'HOUSING PROJECT', 'FARM HOUSE', 'INVESTMENT', 'RESORT', 'HOMESTAY', 'TOURISM', 'HOTEL', 'ASHRAM', 'TEA GARDEN', 'FARMING', 'POULTRY FARMING', 'HATACHERY', 'FISHARY', 'SCHOOL', 'HOSPITAL', 'RESTURENT', 'OTHERS'];
     const SPECIALTIES = ['HILL WITH OUT KJ VIEW', 'HILL WITH KJ VIEW', 'PLAIN WITH HILL VIEW', 'RIVER SIDE', 'RIVER VIEW', 'FOREST VIEW', 'FOREST SIDE', 'NH 17 SIDE', 'NH 717 SIDE', 'REMOTE AREA', 'BAZAR AREA', 'DONBOSKO AREA', 'HIGH LAND', 'UPS DOWN LAND', 'SWAMP LAND', 'PADDY FIELD', 'OTHERS'];
@@ -464,16 +480,18 @@
 
     let db = { Client: [], Property: [], Task: [] };
 
-    // Initialize Multi-Select Chips
+    // Multi-Select Chips Helper
     function buildChips(containerId, list, otherInputId) {
       const container = document.getElementById(containerId);
+      if (!container) return;
       container.innerHTML = list.map(item => `<div class="chip-item" onclick="toggleChip(this, '${otherInputId}')">${item}</div>`).join('');
     }
 
     function toggleChip(el, otherInputId) {
       el.classList.toggle('selected');
       if (el.innerText.toUpperCase() === 'OTHERS' && otherInputId) {
-        document.getElementById(otherInputId).style.display = el.classList.contains('selected') ? 'block' : 'none';
+        const otherEl = document.getElementById(otherInputId);
+        if (otherEl) otherEl.style.display = el.classList.contains('selected') ? 'block' : 'none';
       }
     }
 
@@ -494,21 +512,59 @@
       });
       if (otherInputId) {
         const otherItem = items.find(s => s.startsWith("Other: "));
-        if (otherItem) {
-          document.getElementById(otherInputId).value = otherItem.replace("Other: ", "");
-          document.getElementById(otherInputId).style.display = 'block';
-        } else {
-          document.getElementById(otherInputId).value = '';
-          document.getElementById(otherInputId).style.display = 'none';
+        const otherEl = document.getElementById(otherInputId);
+        if (otherEl) {
+          if (otherItem) {
+            otherEl.value = otherItem.replace("Other: ", "");
+            otherEl.style.display = 'block';
+          } else {
+            otherEl.value = '';
+            otherEl.style.display = 'none';
+          }
         }
       }
     }
 
-    buildChips('client-intended-chips', INTENDED_USES, 'c-intended-other');
-    buildChips('client-specialty-chips', SPECIALTIES, 'c-specialty-other');
-    buildChips('client-location-chips', LOCATIONS, 'c-location-other');
-    buildChips('prop-specialty-chips', SPECIALTIES, 'p-specialty-other');
-    buildChips('prop-location-chips', LOCATIONS, 'p-location-other');
+    // Modal Opening & Closing Handlers
+    function openModalSafe(modalId) {
+      const el = document.getElementById(modalId);
+      if (el) el.style.display = 'block';
+    }
+
+    function closeModalSafe(modalId) {
+      const el = document.getElementById(modalId);
+      if (el) el.style.display = 'none';
+    }
+
+    function openClientModalSafe() {
+      const form = document.getElementById('form-client');
+      if (form) form.reset();
+      document.getElementById('client-id').value = '';
+      document.getElementById('client-modal-title').innerText = "+ Add Client";
+      document.getElementById('c-date').value = new Date().toISOString().split('T')[0];
+      setSelectedChips('client-intended-chips', '', 'c-intended-other');
+      setSelectedChips('client-specialty-chips', '', 'c-specialty-other');
+      setSelectedChips('client-location-chips', '', 'c-location-other');
+      openModalSafe('modal-client');
+    }
+
+    function openPropertyModalSafe() {
+      const form = document.getElementById('form-property');
+      if (form) form.reset();
+      document.getElementById('prop-id').value = '';
+      document.getElementById('prop-modal-title').innerText = "+ Add Property";
+      document.getElementById('p-date').value = new Date().toISOString().split('T')[0];
+      setSelectedChips('prop-specialty-chips', '', 'p-specialty-other');
+      setSelectedChips('prop-location-chips', '', 'p-location-other');
+      openModalSafe('modal-property');
+    }
+
+    function openTaskModalSafe() {
+      const form = document.getElementById('form-task');
+      if (form) form.reset();
+      document.getElementById('t-date').value = new Date().toISOString().split('T')[0];
+      openModalSafe('modal-task');
+    }
 
     function calcTotals() {
       const size = parseFloat(document.getElementById('p-size').value) || 0;
@@ -531,7 +587,7 @@
       }
     }
 
-    // Matchmaker Engine: Finds suitable properties for a given client
+    // Matchmaker Engine
     function runMatchmaker(client) {
       const clientLocations = (client['Location'] || '').toUpperCase();
       const maxBudget = parseFloat(client['Max Budget (₹)']) || Infinity;
@@ -556,7 +612,6 @@
       document.getElementById('client-total-badge').innerText = clients.length;
       document.getElementById('prop-total-badge').innerText = props.length;
 
-      // Check follow-ups
       const today = new Date().toISOString().split('T')[0];
       let dueCount = 0;
       let overdueCount = 0;
@@ -573,7 +628,6 @@
       document.getElementById('cnt-followups').innerText = dueCount;
       document.getElementById('cnt-overdue').innerText = `🔔 ${overdueCount} Overdue`;
 
-      // Render today's tasks
       const todayTasks = tasks.filter(t => t.Date && new Date(t.Date).toISOString().split('T')[0] === today);
       const todayEl = document.getElementById('today-tasks-container');
       if (todayTasks.length > 0) {
@@ -638,7 +692,7 @@
 
     function renderTasks() {
       const el = document.getElementById('task-list');
-      el.innerHTML = (db.Task || []).map((t, idx) => `
+      el.innerHTML = (db.Task || []).map(t => `
         <div class="item-card">
           <h4>${t.Task}</h4>
           <p style="font-size:12px; color:#555;">📅 ${t.Date || ''} ${t.Time || ''} | 📍 ${t.Place || '-'}</p>
@@ -678,17 +732,6 @@
     }
 
     // Client Add / Edit Workflows
-    function openClientModal() {
-      document.getElementById('form-client').reset();
-      document.getElementById('client-id').value = '';
-      document.getElementById('client-modal-title').innerText = "+ Add Client";
-      document.getElementById('c-date').value = new Date().toISOString().split('T')[0];
-      setSelectedChips('client-intended-chips', '', 'c-intended-other');
-      setSelectedChips('client-specialty-chips', '', 'c-specialty-other');
-      setSelectedChips('client-location-chips', '', 'c-location-other');
-      openModal('modal-client');
-    }
-
     function editClient(id) {
       const c = (db.Client || []).find(item => item['Client ID'] == id);
       if (!c) return;
@@ -710,7 +753,7 @@
       setSelectedChips('client-intended-chips', c['Intended Use'], 'c-intended-other');
       setSelectedChips('client-specialty-chips', c['Specialty'], 'c-specialty-other');
       setSelectedChips('client-location-chips', c['Location'], 'c-location-other');
-      openModal('modal-client');
+      openModalSafe('modal-client');
     }
 
     async function saveClient(e) {
@@ -723,20 +766,10 @@
       
       const isEdit = !!data['Client ID'];
       await postData(isEdit ? 'edit' : 'add', 'Client', data, data['Client ID']);
-      closeModal('modal-client');
+      closeModalSafe('modal-client');
     }
 
     // Property Add / Edit Workflows
-    function openPropertyModal() {
-      document.getElementById('form-property').reset();
-      document.getElementById('prop-id').value = '';
-      document.getElementById('prop-modal-title').innerText = "+ Add Property";
-      document.getElementById('p-date').value = new Date().toISOString().split('T')[0];
-      setSelectedChips('prop-specialty-chips', '', 'p-specialty-other');
-      setSelectedChips('prop-location-chips', '', 'p-location-other');
-      openModal('modal-property');
-    }
-
     function editProperty(id) {
       const p = (db.Property || []).find(item => item['Property ID'] == id);
       if (!p) return;
@@ -760,7 +793,7 @@
       document.getElementById('p-notes').value = p['Additional Notes'] || '';
       setSelectedChips('prop-specialty-chips', p.Specialty, 'p-specialty-other');
       setSelectedChips('prop-location-chips', p.Location, 'p-location-other');
-      openModal('modal-property');
+      openModalSafe('modal-property');
     }
 
     async function saveProperty(e) {
@@ -775,14 +808,7 @@
 
       const isEdit = !!data['Property ID'];
       await postData(isEdit ? 'edit' : 'add', 'Property', data, data['Property ID']);
-      closeModal('modal-property');
-    }
-
-    // Task Add Workflows
-    function openTaskModal() {
-      document.getElementById('form-task').reset();
-      document.getElementById('t-date').value = new Date().toISOString().split('T')[0];
-      openModal('modal-task');
+      closeModalSafe('modal-property');
     }
 
     function toggleTaskOther(val) {
@@ -796,25 +822,33 @@
         data['Task Type'] = "Other: " + document.getElementById('t-type-other').value;
       }
       await postData('add', 'Task', data);
-      closeModal('modal-task');
+      closeModalSafe('modal-task');
     }
 
     async function postData(action, type, data, id) {
       document.getElementById('status-text').innerText = "Updating Sheets...";
-      await fetch(API_URL, {
-        method: 'POST',
-        body: JSON.stringify({ action, type, data, id })
-      });
+      try {
+        await fetch(API_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action, type, data, id })
+        });
+      } catch (e) {
+        console.error(e);
+      }
       fetchData();
     }
 
     async function deleteRecord(type, id) {
       if (!confirm(`Are you sure you want to delete this ${type} record?`)) return;
       document.getElementById('status-text').innerText = "Deleting...";
-      await fetch(API_URL, {
-        method: 'POST',
-        body: JSON.stringify({ action: 'delete', type: type, id: id })
-      });
+      try {
+        await fetch(API_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action: 'delete', type: type, id: id })
+        });
+      } catch (e) {
+        console.error(e);
+      }
       fetchData();
     }
 
@@ -832,11 +866,15 @@
       });
     }
 
-    function openModal(id) { document.getElementById(id).classList.add('active'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-    // Start
-    fetchData();
+    // Initialize UI on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      buildChips('client-intended-chips', INTENDED_USES, 'c-intended-other');
+      buildChips('client-specialty-chips', SPECIALTIES, 'c-specialty-other');
+      buildChips('client-location-chips', LOCATIONS, 'c-location-other');
+      buildChips('prop-specialty-chips', SPECIALTIES, 'p-specialty-other');
+      buildChips('prop-location-chips', LOCATIONS, 'p-location-other');
+      fetchData();
+    });
   </script>
 </body>
 </html>
