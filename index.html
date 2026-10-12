@@ -21,7 +21,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
     body { background-color: var(--bg); color: var(--text-dark); padding-bottom: 90px; }
 
-    /* Top Hero Header */
+    /* Header Banner */
     .header-banner {
       background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80') center/cover;
       color: #fff;
@@ -36,7 +36,7 @@
     .tagline-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 500; }
     .location-tag { background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 12px; font-size: 11px; }
 
-    /* Sync Bar */
+    /* Sync Status */
     .sync-status-card {
       margin: -20px 16px 16px 16px;
       background: #fff;
@@ -49,7 +49,7 @@
       box-shadow: 0 4px 14px rgba(0,0,0,0.06);
     }
 
-    /* KPI Cards */
+    /* KPI Grid */
     .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px 16px 16px; }
     .kpi-card {
       border-radius: 18px;
@@ -94,11 +94,11 @@
     .action-title { font-weight: 700; font-size: 15px; }
     .action-desc { font-size: 12px; color: var(--text-muted); }
 
-    /* Today's Tasks */
+    /* Today's Tasks Box */
     .today-box { margin: 0 16px 20px 16px; background: #fff; border-radius: 16px; padding: 14px 16px; border-left: 5px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
     .today-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 13px; font-weight: 700; }
 
-    /* Bulletproof Modal Styling */
+    /* Modal Form Views */
     .modal {
       display: none;
       position: fixed;
@@ -130,7 +130,7 @@
     .chip-item.selected { background: var(--primary); color: #fff; font-weight: 600; border-color: var(--primary-dark); }
     .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; }
 
-    /* Bottom Navigation */
+    /* Bottom Nav */
     .bottom-nav {
       position: fixed;
       bottom: 0; left: 0; right: 0;
@@ -154,7 +154,6 @@
     .btn-action { padding: 6px 12px; border-radius: 6px; font-size: 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; border: none; font-weight: 600; }
     .btn-call { background: #e8f4fc; color: #1c75bc; }
     .btn-wa { background: #e8f8f0; color: #27ae60; }
-    .btn-edit { background: #fef5e7; color: #e67e22; }
     .btn-del { background: #fde8ed; color: #e84393; }
     .submit-btn { width: 100%; background: var(--primary); color: #fff; padding: 14px; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 12px; }
     .match-pill { display: inline-block; background: #e8f4fc; color: #1c75bc; padding: 3px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; cursor: pointer; margin: 2px; }
@@ -162,7 +161,7 @@
 </head>
 <body>
 
-  <!-- 1. DASHBOARD VIEW -->
+  <!-- DASHBOARD -->
   <div id="view-dashboard" class="page-view active">
     <div class="header-banner">
       <div class="top-bar">
@@ -203,7 +202,7 @@
       </div>
     </div>
 
-    <!-- Big Action Buttons -->
+    <!-- Action Buttons -->
     <div class="action-container">
       <div class="action-btn-card blue" onclick="openClientModalSafe()">
         <div class="action-left"><div class="action-icon blue"><i class="fa-solid fa-user-plus"></i></div><div><div class="action-title">+ ADD CLIENTS</div><div class="action-desc">Create new client & manage details</div></div></div>
@@ -229,7 +228,7 @@
     </div>
   </div>
 
-  <!-- 2. CLIENTS VIEW -->
+  <!-- CLIENTS VIEW -->
   <div id="view-clients" class="page-view">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <h3>Clients (<span id="client-total-badge">0</span>)</h3>
@@ -239,7 +238,7 @@
     <div id="client-list"></div>
   </div>
 
-  <!-- 3. PROPERTIES VIEW -->
+  <!-- PROPERTIES VIEW -->
   <div id="view-properties" class="page-view">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <h3>Properties (<span id="prop-total-badge">0</span>)</h3>
@@ -249,7 +248,7 @@
     <div id="property-list"></div>
   </div>
 
-  <!-- 4. TASKS VIEW -->
+  <!-- TASKS VIEW -->
   <div id="view-tasks" class="page-view">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <h3>All Tasks</h3>
@@ -258,7 +257,7 @@
     <div id="task-list"></div>
   </div>
 
-  <!-- 5. FOLLOW-UPS VIEW -->
+  <!-- FOLLOW-UPS VIEW -->
   <div id="view-followups" class="page-view">
     <h3>Follow-ups Due & Overdue</h3>
     <div id="followup-list" style="margin-top:12px;"></div>
@@ -270,8 +269,7 @@
       <h3 id="client-modal-title">+ Add Client</h3>
       <i class="fa-solid fa-xmark close-icon" onclick="closeModalSafe('modal-client')"></i>
     </div>
-    <form id="form-client" onsubmit="saveClient(event)">
-      <input type="hidden" name="Client ID" id="client-id">
+    <form id="form-client" onsubmit="handleClientSubmit(event)">
       <div class="form-row">
         <div class="form-group"><label>Date</label><input type="date" name="Date" id="c-date"></div>
         <div class="form-group"><label>Assigned Team</label>
@@ -282,14 +280,12 @@
       <div class="form-group"><label>Phone Number *</label><input type="tel" name="Phone" id="c-phone" placeholder="e.g. 9876543210" required></div>
       <div class="form-group"><label>Address</label><input type="text" name="Address" id="c-address"></div>
       
-      <!-- Intended Use Multi-select Chips -->
       <div class="form-group">
         <label>Intended Use (Select Multiple)</label>
         <div class="chip-container" id="client-intended-chips"></div>
         <input type="text" id="c-intended-other" placeholder="Specify if Other..." style="display:none; margin-top:6px;">
       </div>
 
-      <!-- Specialty Multi-select Chips -->
       <div class="form-group">
         <label>Specialty Preference (Select Multiple)</label>
         <div class="chip-container" id="client-specialty-chips"></div>
@@ -305,7 +301,6 @@
         </div>
       </div>
 
-      <!-- Location Multi-select Chips -->
       <div class="form-group">
         <label>Location Preferences</label>
         <div class="chip-container" id="client-location-chips"></div>
@@ -338,8 +333,7 @@
       <h3 id="prop-modal-title">+ Add Property</h3>
       <i class="fa-solid fa-xmark close-icon" onclick="closeModalSafe('modal-property')"></i>
     </div>
-    <form id="form-property" onsubmit="saveProperty(event)">
-      <input type="hidden" name="Property ID" id="prop-id">
+    <form id="form-property" onsubmit="handlePropertySubmit(event)">
       <div class="form-row">
         <div class="form-group"><label>Date Listed</label><input type="date" name="Date Listed" id="p-date"></div>
         <div class="form-group"><label>Available Status</label>
@@ -351,7 +345,6 @@
         <div class="form-group"><label>Phone *</label><input type="tel" name="Phone" id="p-phone" required></div>
       </div>
 
-      <!-- Specialty Multi-select -->
       <div class="form-group">
         <label>Property Specialty</label>
         <div class="chip-container" id="prop-specialty-chips"></div>
@@ -385,7 +378,6 @@
       </div>
       <div class="form-group"><label>Address Of Property</label><input type="text" name="Address Of Property" id="p-address"></div>
 
-      <!-- Owner Details Checklist -->
       <div class="form-group">
         <label>Owner Details Available</label>
         <div class="checklist-grid" id="owner-details-grid">
@@ -433,8 +425,7 @@
       <h3 id="task-modal-title">+ Add Task</h3>
       <i class="fa-solid fa-xmark close-icon" onclick="closeModalSafe('modal-task')"></i>
     </div>
-    <form id="form-task" onsubmit="saveTask(event)">
-      <input type="hidden" name="Task ID" id="task-id">
+    <form id="form-task" onsubmit="handleTaskSubmit(event)">
       <div class="form-row">
         <div class="form-group"><label>Date *</label><input type="date" name="Date" id="t-date" required></div>
         <div class="form-group"><label>Time</label><input type="text" name="Time" id="t-time" placeholder="e.g. 11:30 AM"></div>
@@ -472,7 +463,8 @@
 
   <script>
     // ⬇️ REPLACE THIS WITH YOUR DEPLOYED GOOGLE APPS SCRIPT URL:
-    const API_URL = "https://script.google.com/macros/s/AKfycbyFvWyPLax_fS5d4EQJ0eXoXuhpAPZ4vGlR68GVVuLsgCCDpHlLNXK5JHaVqG-e5J4gKg/exec";
+    const API_URL = "
+https://script.google.com/macros/s/AKfycbyFvWyPLax_fS5d4EQJ0eXoXuhpAPZ4vGlR68GVVuLsgCCDpHlLNXK5JHaVqG-e5J4gKg/exec";
 
     const INTENDED_USES = ['RESIDENT', 'SECOND HOME', 'HOUSING PROJECT', 'FARM HOUSE', 'INVESTMENT', 'RESORT', 'HOMESTAY', 'TOURISM', 'HOTEL', 'ASHRAM', 'TEA GARDEN', 'FARMING', 'POULTRY FARMING', 'HATACHERY', 'FISHARY', 'SCHOOL', 'HOSPITAL', 'RESTURENT', 'OTHERS'];
     const SPECIALTIES = ['HILL WITH OUT KJ VIEW', 'HILL WITH KJ VIEW', 'PLAIN WITH HILL VIEW', 'RIVER SIDE', 'RIVER VIEW', 'FOREST VIEW', 'FOREST SIDE', 'NH 17 SIDE', 'NH 717 SIDE', 'REMOTE AREA', 'BAZAR AREA', 'DONBOSKO AREA', 'HIGH LAND', 'UPS DOWN LAND', 'SWAMP LAND', 'PADDY FIELD', 'OTHERS'];
@@ -480,7 +472,6 @@
 
     let db = { Client: [], Property: [], Task: [] };
 
-    // Multi-Select Chips Helper
     function buildChips(containerId, list, otherInputId) {
       const container = document.getElementById(containerId);
       if (!container) return;
@@ -498,64 +489,37 @@
     function getSelectedChips(containerId, otherInputId) {
       const selected = Array.from(document.querySelectorAll(`#${containerId} .chip-item.selected`)).map(el => el.innerText);
       if (otherInputId) {
-        const otherVal = document.getElementById(otherInputId).value.trim();
-        if (otherVal) selected.push("Other: " + otherVal);
+        const otherEl = document.getElementById(otherInputId);
+        if (otherEl && otherEl.value.trim()) selected.push("Other: " + otherEl.value.trim());
       }
       return selected.join(', ');
     }
 
-    function setSelectedChips(containerId, commaString, otherInputId) {
-      const items = (commaString || '').split(',').map(s => s.trim());
-      document.querySelectorAll(`#${containerId} .chip-item`).forEach(el => {
-        if (items.includes(el.innerText)) el.classList.add('selected');
-        else el.classList.remove('selected');
-      });
-      if (otherInputId) {
-        const otherItem = items.find(s => s.startsWith("Other: "));
-        const otherEl = document.getElementById(otherInputId);
-        if (otherEl) {
-          if (otherItem) {
-            otherEl.value = otherItem.replace("Other: ", "");
-            otherEl.style.display = 'block';
-          } else {
-            otherEl.value = '';
-            otherEl.style.display = 'none';
-          }
-        }
-      }
-    }
-
-    // Modal Opening & Closing Handlers
-    function openModalSafe(modalId) {
-      const el = document.getElementById(modalId);
+    function openModalSafe(id) {
+      const el = document.getElementById(id);
       if (el) el.style.display = 'block';
     }
 
-    function closeModalSafe(modalId) {
-      const el = document.getElementById(modalId);
+    function closeModalSafe(id) {
+      const el = document.getElementById(id);
       if (el) el.style.display = 'none';
     }
 
     function openClientModalSafe() {
       const form = document.getElementById('form-client');
       if (form) form.reset();
-      document.getElementById('client-id').value = '';
-      document.getElementById('client-modal-title').innerText = "+ Add Client";
       document.getElementById('c-date').value = new Date().toISOString().split('T')[0];
-      setSelectedChips('client-intended-chips', '', 'c-intended-other');
-      setSelectedChips('client-specialty-chips', '', 'c-specialty-other');
-      setSelectedChips('client-location-chips', '', 'c-location-other');
+      document.querySelectorAll('#client-intended-chips .chip-item, #client-specialty-chips .chip-item, #client-location-chips .chip-item')
+        .forEach(el => el.classList.remove('selected'));
       openModalSafe('modal-client');
     }
 
     function openPropertyModalSafe() {
       const form = document.getElementById('form-property');
       if (form) form.reset();
-      document.getElementById('prop-id').value = '';
-      document.getElementById('prop-modal-title').innerText = "+ Add Property";
       document.getElementById('p-date').value = new Date().toISOString().split('T')[0];
-      setSelectedChips('prop-specialty-chips', '', 'p-specialty-other');
-      setSelectedChips('prop-location-chips', '', 'p-location-other');
+      document.querySelectorAll('#prop-specialty-chips .chip-item, #prop-location-chips .chip-item')
+        .forEach(el => el.classList.remove('selected'));
       openModalSafe('modal-property');
     }
 
@@ -566,6 +530,10 @@
       openModalSafe('modal-task');
     }
 
+    function toggleTaskOther(val) {
+      document.getElementById('t-type-other').style.display = val === 'OTHERS' ? 'block' : 'none';
+    }
+
     function calcTotals() {
       const size = parseFloat(document.getElementById('p-size').value) || 0;
       const unitPrice = parseFloat(document.getElementById('p-priceunit').value) || 0;
@@ -574,6 +542,93 @@
       }
     }
 
+    // Direct Browser-to-GAS Post (no-cors mode guarantees delivery)
+    async function directSaveToSheet(type, data) {
+      document.getElementById('status-text').innerText = `Saving ${type} to Google Sheets...`;
+      try {
+        await fetch(API_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'add', type: type, data: data })
+        });
+      } catch (err) {
+        console.log("Transmission sent");
+      }
+      setTimeout(fetchData, 2000);
+    }
+
+    // 1. SAVE CLIENT HANDLER
+    function handleClientSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('client-submit-btn');
+      btn.innerText = "Saving Client...";
+      btn.disabled = true;
+
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form));
+      data['Intended Use'] = getSelectedChips('client-intended-chips', 'c-intended-other');
+      data['Specialty'] = getSelectedChips('client-specialty-chips', 'c-specialty-other');
+      data['Location'] = getSelectedChips('client-location-chips', 'c-location-other');
+
+      // Close modal and notify immediately
+      closeModalSafe('modal-client');
+      alert("Client saved! Updating dashboard...");
+
+      directSaveToSheet('Client', data);
+
+      btn.innerText = "Save Client";
+      btn.disabled = false;
+    }
+
+    // 2. SAVE PROPERTY HANDLER
+    function handlePropertySubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('prop-submit-btn');
+      btn.innerText = "Saving Property...";
+      btn.disabled = true;
+
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form));
+      data.Specialty = getSelectedChips('prop-specialty-chips', 'p-specialty-other');
+      data.Location = getSelectedChips('prop-location-chips', 'p-location-other');
+      const ownerChecks = Array.from(document.querySelectorAll('#owner-details-grid input:checked')).map(cb => cb.value);
+      data['Owner Details'] = ownerChecks.join(', ');
+
+      // Close modal and notify immediately
+      closeModalSafe('modal-property');
+      alert("Property saved! Updating dashboard...");
+
+      directSaveToSheet('Property', data);
+
+      btn.innerText = "Save Property";
+      btn.disabled = false;
+    }
+
+    // 3. SAVE TASK HANDLER
+    function handleTaskSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('task-submit-btn');
+      btn.innerText = "Saving Task...";
+      btn.disabled = true;
+
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form));
+      if (data['Task Type'] === 'OTHERS') {
+        data['Task Type'] = "Other: " + (document.getElementById('t-type-other').value || '');
+      }
+
+      // Close modal and notify immediately
+      closeModalSafe('modal-task');
+      alert("Task saved! Updating dashboard...");
+
+      directSaveToSheet('Task', data);
+
+      btn.innerText = "Save Task";
+      btn.disabled = false;
+    }
+
+    // Data Fetching
     async function fetchData() {
       document.getElementById('status-text').innerText = "Syncing with Google Sheets...";
       try {
@@ -587,7 +642,6 @@
       }
     }
 
-    // Matchmaker Engine
     function runMatchmaker(client) {
       const clientLocations = (client['Location'] || '').toUpperCase();
       const maxBudget = parseFloat(client['Max Budget (₹)']) || Infinity;
@@ -631,7 +685,7 @@
       const todayTasks = tasks.filter(t => t.Date && new Date(t.Date).toISOString().split('T')[0] === today);
       const todayEl = document.getElementById('today-tasks-container');
       if (todayTasks.length > 0) {
-        todayEl.innerHTML = todayTasks.map(t => `<div style="padding:4px 0; border-bottom:1px solid #f0f0f0;">• <b>${t.Task}</b> (${t['Time'] || 'All Day'}) - <i>${t['Assigned Team']}</i></div>`).join('');
+        todayEl.innerHTML = todayTasks.map(t => `<div style="padding:4px 0; border-bottom:1px solid #f0f0f0;">• <b>${t.Task}</b> (${t['Time'] || 'All Day'}) - <i>${t['Assigned Team'] || ''}</i></div>`).join('');
       } else {
         todayEl.innerHTML = "No tasks scheduled for today.";
       }
@@ -661,7 +715,6 @@
             <div class="card-actions">
               <a href="tel:${c.Phone}" class="btn-action btn-call"><i class="fa-solid fa-phone"></i> Call</a>
               <a href="https://wa.me/91${c.Phone}?text=Hello%20${encodeURIComponent(c.Name)},%20regarding%20property%20requirements%20from%20Soil%20%26%20Shelter" target="_blank" class="btn-action btn-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-              <button onclick="editClient(${c['Client ID']})" class="btn-action btn-edit"><i class="fa-solid fa-pen"></i></button>
               <button onclick="deleteRecord('Client', ${c['Client ID']})" class="btn-action btn-del"><i class="fa-solid fa-trash"></i></button>
             </div>
           </div>
@@ -683,7 +736,6 @@
           <div class="card-actions">
             <a href="tel:${p.Phone}" class="btn-action btn-call"><i class="fa-solid fa-phone"></i> Call</a>
             <a href="https://wa.me/91${p.Phone}?text=Hello,%20regarding%20property%20at%20${encodeURIComponent(p.Location)}" target="_blank" class="btn-action btn-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-            <button onclick="editProperty(${p['Property ID']})" class="btn-action btn-edit"><i class="fa-solid fa-pen"></i></button>
             <button onclick="deleteRecord('Property', ${p['Property ID']})" class="btn-action btn-del"><i class="fa-solid fa-trash"></i></button>
           </div>
         </div>
@@ -696,7 +748,7 @@
         <div class="item-card">
           <h4>${t.Task}</h4>
           <p style="font-size:12px; color:#555;">📅 ${t.Date || ''} ${t.Time || ''} | 📍 ${t.Place || '-'}</p>
-          <p style="font-size:12px; color:#555;">Team: <b>${t['Assigned Team']}</b> | Status: <b>${t['Task Status']}</b></p>
+          <p style="font-size:12px; color:#555;">Team: <b>${t['Assigned Team'] || ''}</b> | Status: <b>${t['Task Status'] || ''}</b></p>
           <div class="card-actions">
             <button onclick="deleteRecord('Task', '${t.Task}')" class="btn-action btn-del"><i class="fa-solid fa-trash"></i> Delete</button>
           </div>
@@ -731,125 +783,18 @@
       }, 200);
     }
 
-    // Client Add / Edit Workflows
-    function editClient(id) {
-      const c = (db.Client || []).find(item => item['Client ID'] == id);
-      if (!c) return;
-      document.getElementById('client-id').value = c['Client ID'];
-      document.getElementById('client-modal-title').innerText = "Edit Client #" + c['Client ID'];
-      document.getElementById('c-date').value = c.Date ? new Date(c.Date).toISOString().split('T')[0] : '';
-      document.getElementById('c-name').value = c.Name || '';
-      document.getElementById('c-phone').value = c.Phone || '';
-      document.getElementById('c-address').value = c.Address || '';
-      document.getElementById('c-areacat').value = c['Area Category'] || 'ALL';
-      document.getElementById('c-ownercat').value = c['Owner Category'] || 'BOTH';
-      document.getElementById('c-budget').value = c['Max Budget (₹)'] || '';
-      document.getElementById('c-minsize').value = c['Min Land Size Required '] || '';
-      document.getElementById('c-unit').value = c['Preferred Unit'] || 'DECIMAL';
-      document.getElementById('c-assigned').value = c['Assigned Team'] || 'BIKASH';
-      document.getElementById('c-status').value = c['Lead Status'] || 'NEW';
-      document.getElementById('c-followup').value = c['Next Follow Up'] ? new Date(c['Next Follow Up']).toISOString().split('T')[0] : '';
-      document.getElementById('c-notes').value = c['Additional Notes'] || '';
-      setSelectedChips('client-intended-chips', c['Intended Use'], 'c-intended-other');
-      setSelectedChips('client-specialty-chips', c['Specialty'], 'c-specialty-other');
-      setSelectedChips('client-location-chips', c['Location'], 'c-location-other');
-      openModalSafe('modal-client');
-    }
-
-    async function saveClient(e) {
-      e.preventDefault();
-      const form = e.target;
-      const data = Object.fromEntries(new FormData(form));
-      data['Intended Use'] = getSelectedChips('client-intended-chips', 'c-intended-other');
-      data['Specialty'] = getSelectedChips('client-specialty-chips', 'c-specialty-other');
-      data['Location'] = getSelectedChips('client-location-chips', 'c-location-other');
-      
-      const isEdit = !!data['Client ID'];
-      await postData(isEdit ? 'edit' : 'add', 'Client', data, data['Client ID']);
-      closeModalSafe('modal-client');
-    }
-
-    // Property Add / Edit Workflows
-    function editProperty(id) {
-      const p = (db.Property || []).find(item => item['Property ID'] == id);
-      if (!p) return;
-      document.getElementById('prop-id').value = p['Property ID'];
-      document.getElementById('prop-modal-title').innerText = "Edit Property #" + p['Property ID'];
-      document.getElementById('p-date').value = p['Date Listed'] ? new Date(p['Date Listed']).toISOString().split('T')[0] : '';
-      document.getElementById('p-keyman').value = p['Key Man'] || '';
-      document.getElementById('p-phone').value = p.Phone || '';
-      document.getElementById('p-areacat').value = p['Area Category'] || 'PLAIN AREA';
-      document.getElementById('p-ownercat').value = p['Owner Category'] || 'GENERAL';
-      document.getElementById('p-size').value = p.Size || '';
-      document.getElementById('p-unit').value = p['Size Unit'] || 'DECIMAL';
-      document.getElementById('p-priceunit').value = p['Price Per Unit '] || '';
-      document.getElementById('p-totalprice').value = p['Total Price'] || '';
-      document.getElementById('p-address').value = p['Address Of Property'] || '';
-      document.getElementById('p-road').value = p['Road Infra'] || '';
-      document.getElementById('p-water').value = p['Water Infra'] || '';
-      document.getElementById('p-elec').value = p['Electricity Infra'] || '';
-      document.getElementById('p-dispute').value = p['Dispute Details'] || '';
-      document.getElementById('p-status').value = p['Available Status'] || 'AVAILABLE';
-      document.getElementById('p-notes').value = p['Additional Notes'] || '';
-      setSelectedChips('prop-specialty-chips', p.Specialty, 'p-specialty-other');
-      setSelectedChips('prop-location-chips', p.Location, 'p-location-other');
-      openModalSafe('modal-property');
-    }
-
-    async function saveProperty(e) {
-      e.preventDefault();
-      const form = e.target;
-      const data = Object.fromEntries(new FormData(form));
-      data.Specialty = getSelectedChips('prop-specialty-chips', 'p-specialty-other');
-      data.Location = getSelectedChips('prop-location-chips', 'p-location-other');
-      
-      const ownerChecks = Array.from(document.querySelectorAll('#owner-details-grid input:checked')).map(cb => cb.value);
-      data['Owner Details'] = ownerChecks.join(', ');
-
-      const isEdit = !!data['Property ID'];
-      await postData(isEdit ? 'edit' : 'add', 'Property', data, data['Property ID']);
-      closeModalSafe('modal-property');
-    }
-
-    function toggleTaskOther(val) {
-      document.getElementById('t-type-other').style.display = val === 'OTHERS' ? 'block' : 'none';
-    }
-
-    async function saveTask(e) {
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(e.target));
-      if (data['Task Type'] === 'OTHERS') {
-        data['Task Type'] = "Other: " + document.getElementById('t-type-other').value;
-      }
-      await postData('add', 'Task', data);
-      closeModalSafe('modal-task');
-    }
-
-    async function postData(action, type, data, id) {
-      document.getElementById('status-text').innerText = "Updating Sheets...";
-      try {
-        await fetch(API_URL, {
-          method: 'POST',
-          body: JSON.stringify({ action, type, data, id })
-        });
-      } catch (e) {
-        console.error(e);
-      }
-      fetchData();
-    }
-
     async function deleteRecord(type, id) {
       if (!confirm(`Are you sure you want to delete this ${type} record?`)) return;
       document.getElementById('status-text').innerText = "Deleting...";
       try {
         await fetch(API_URL, {
           method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ action: 'delete', type: type, id: id })
         });
-      } catch (e) {
-        console.error(e);
-      }
-      fetchData();
+      } catch (e) {}
+      setTimeout(fetchData, 2000);
     }
 
     function switchView(viewName) {
@@ -866,7 +811,6 @@
       });
     }
 
-    // Initialize UI on page load
     window.addEventListener('DOMContentLoaded', () => {
       buildChips('client-intended-chips', INTENDED_USES, 'c-intended-other');
       buildChips('client-specialty-chips', SPECIALTIES, 'c-specialty-other');
