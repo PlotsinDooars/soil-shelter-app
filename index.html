@@ -21,7 +21,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
     body { background-color: var(--bg); color: var(--text-dark); padding-bottom: 90px; }
 
-    /* Header Banner */
+    /* Top Hero Header */
     .header-banner {
       background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80') center/cover;
       color: #fff;
@@ -94,43 +94,55 @@
     .action-title { font-weight: 700; font-size: 15px; }
     .action-desc { font-size: 12px; color: var(--text-muted); }
 
-    /* Today's Tasks Box */
+    /* Today's Tasks */
     .today-box { margin: 0 16px 20px 16px; background: #fff; border-radius: 16px; padding: 14px 16px; border-left: 5px solid var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
     .today-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 13px; font-weight: 700; }
 
-    /* Modal Form Views */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #ffffff;
-      z-index: 99999;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 20px 16px 90px 16px;
-    }
-    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 2px solid #eee; padding-bottom: 12px; }
-    .modal-head h3 { font-size: 18px; color: var(--text-dark); }
-    .close-icon { font-size: 22px; cursor: pointer; color: #e74c3c; padding: 6px; }
+    /* Navigation & Pages */
+    .page-view { display: none; padding: 16px; }
+    .page-view.active { display: block; }
 
-    /* Forms */
+    /* Full Page Form Headers */
+    .form-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      padding: 14px 16px;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .form-header-bar h3 { font-size: 17px; font-weight: 700; }
+    .btn-back {
+      background: #f1f2f6;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #2f3542;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Form Fields & Multi-select */
     .form-group { margin-bottom: 14px; }
     .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 5px; color: #2d3436; }
     .form-group input, .form-group select, .form-group textarea {
-      width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 13px; outline: none; background: #fff;
+      width: 100%; padding: 11px; border-radius: 8px; border: 1px solid #ccc; font-size: 13px; outline: none; background: #fff;
     }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .chip-container { display: flex; flex-wrap: wrap; gap: 6px; max-height: 140px; overflow-y: auto; padding: 6px; border: 1px solid #e1e8ed; border-radius: 8px; background: #fafbfc; }
+    .chip-container { display: flex; flex-wrap: wrap; gap: 6px; max-height: 150px; overflow-y: auto; padding: 8px; border: 1px solid #e1e8ed; border-radius: 8px; background: #fff; }
     .chip-item {
-      font-size: 11px; padding: 5px 9px; border-radius: 16px; background: #edf2f7; cursor: pointer; user-select: none; border: 1px solid #d2d6dc;
+      font-size: 11px; padding: 6px 10px; border-radius: 16px; background: #edf2f7; cursor: pointer; user-select: none; border: 1px solid #d2d6dc;
     }
     .chip-item.selected { background: var(--primary); color: #fff; font-weight: 600; border-color: var(--primary-dark); }
     .checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px; }
 
-    /* Bottom Nav */
+    /* Bottom Navigation */
     .bottom-nav {
       position: fixed;
       bottom: 0; left: 0; right: 0;
@@ -146,9 +158,7 @@
     .nav-tab.active { color: #fff; font-weight: 700; }
     .nav-tab i { font-size: 17px; }
 
-    /* Page Views */
-    .page-view { display: none; padding: 16px; }
-    .page-view.active { display: block; }
+    /* Item Cards in Lists */
     .item-card { background: #fff; border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
     .card-actions { display: flex; gap: 8px; margin-top: 10px; padding-top: 8px; border-top: 1px dashed #eee; align-items: center; }
     .btn-action { padding: 6px 12px; border-radius: 6px; font-size: 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; border: none; font-weight: 600; }
@@ -161,7 +171,7 @@
 </head>
 <body>
 
-  <!-- DASHBOARD -->
+  <!-- VIEW 1: DASHBOARD -->
   <div id="view-dashboard" class="page-view active">
     <div class="header-banner">
       <div class="top-bar">
@@ -202,23 +212,23 @@
       </div>
     </div>
 
-    <!-- Action Buttons -->
+    <!-- 3 Action Buttons (Instantly switches to form view) -->
     <div class="action-container">
-      <div class="action-btn-card blue" onclick="openClientModalSafe()">
+      <div class="action-btn-card blue" onclick="openAddClientForm()">
         <div class="action-left"><div class="action-icon blue"><i class="fa-solid fa-user-plus"></i></div><div><div class="action-title">+ ADD CLIENTS</div><div class="action-desc">Create new client & manage details</div></div></div>
         <i class="fa-solid fa-chevron-right text-muted"></i>
       </div>
-      <div class="action-btn-card pink" onclick="openTaskModalSafe()">
+      <div class="action-btn-card pink" onclick="openAddTaskForm()">
         <div class="action-left"><div class="action-icon pink"><i class="fa-solid fa-calendar-plus"></i></div><div><div class="action-title">+ ADD TASK</div><div class="action-desc">Schedule visit, call or other task</div></div></div>
         <i class="fa-solid fa-chevron-right text-muted"></i>
       </div>
-      <div class="action-btn-card green" onclick="openPropertyModalSafe()">
+      <div class="action-btn-card green" onclick="openAddPropertyForm()">
         <div class="action-left"><div class="action-icon green"><i class="fa-solid fa-house-medical"></i></div><div><div class="action-title">+ ADD PROPERTY</div><div class="action-desc">Add new property & manage listings</div></div></div>
         <i class="fa-solid fa-chevron-right text-muted"></i>
       </div>
     </div>
 
-    <!-- Today's Task List -->
+    <!-- Today's Tasks -->
     <div class="today-box">
       <div class="today-header">
         <span><i class="fa-regular fa-calendar-check" style="color:var(--primary);"></i> TODAY'S TASK LIST</span>
@@ -228,46 +238,46 @@
     </div>
   </div>
 
-  <!-- CLIENTS VIEW -->
+  <!-- VIEW 2: CLIENTS LIST -->
   <div id="view-clients" class="page-view">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <h3>Clients (<span id="client-total-badge">0</span>)</h3>
-      <button class="btn-action btn-wa" onclick="openClientModalSafe()">+ Add New</button>
+      <button class="btn-action btn-wa" onclick="openAddClientForm()">+ Add New</button>
     </div>
     <input type="text" placeholder="Search by name, phone, location..." onkeyup="filterList(this.value, 'client-list')" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc; margin-bottom:12px;">
     <div id="client-list"></div>
   </div>
 
-  <!-- PROPERTIES VIEW -->
+  <!-- VIEW 3: PROPERTIES LIST -->
   <div id="view-properties" class="page-view">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <h3>Properties (<span id="prop-total-badge">0</span>)</h3>
-      <button class="btn-action btn-wa" onclick="openPropertyModalSafe()">+ Add New</button>
+      <button class="btn-action btn-wa" onclick="openAddPropertyForm()">+ Add New</button>
     </div>
     <input type="text" placeholder="Search by location, key man, size..." onkeyup="filterList(this.value, 'property-list')" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc; margin-bottom:12px;">
     <div id="property-list"></div>
   </div>
 
-  <!-- TASKS VIEW -->
+  <!-- VIEW 4: TASKS LIST -->
   <div id="view-tasks" class="page-view">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <h3>All Tasks</h3>
-      <button class="btn-action btn-wa" onclick="openTaskModalSafe()">+ Add Task</button>
+      <button class="btn-action btn-wa" onclick="openAddTaskForm()">+ Add Task</button>
     </div>
     <div id="task-list"></div>
   </div>
 
-  <!-- FOLLOW-UPS VIEW -->
+  <!-- VIEW 5: FOLLOW-UPS LIST -->
   <div id="view-followups" class="page-view">
     <h3>Follow-ups Due & Overdue</h3>
     <div id="followup-list" style="margin-top:12px;"></div>
   </div>
 
-  <!-- FULL SCREEN CLIENT MODAL -->
-  <div id="modal-client" class="modal">
-    <div class="modal-head">
-      <h3 id="client-modal-title">+ Add Client</h3>
-      <i class="fa-solid fa-xmark close-icon" onclick="closeModalSafe('modal-client')"></i>
+  <!-- VIEW 6: ADD CLIENT FORM (FULL PAGE VIEW) -->
+  <div id="view-form-client" class="page-view">
+    <div class="form-header-bar">
+      <h3>+ Add Client</h3>
+      <button class="btn-back" onclick="switchView('dashboard')"><i class="fa-solid fa-arrow-left"></i> Back</button>
     </div>
     <form id="form-client" onsubmit="handleClientSubmit(event)">
       <div class="form-row">
@@ -276,9 +286,9 @@
           <select name="Assigned Team" id="c-assigned"><option>BIKASH</option><option>ANWAR</option><option>BOTH</option><option>OTHERS</option></select>
         </div>
       </div>
-      <div class="form-group"><label>Client Name *</label><input type="text" name="Name" id="c-name" required></div>
-      <div class="form-group"><label>Phone Number *</label><input type="tel" name="Phone" id="c-phone" placeholder="e.g. 9876543210" required></div>
-      <div class="form-group"><label>Address</label><input type="text" name="Address" id="c-address"></div>
+      <div class="form-group"><label>Client Name *</label><input type="text" name="Name" required></div>
+      <div class="form-group"><label>Phone Number *</label><input type="tel" name="Phone" placeholder="e.g. 9876543210" required></div>
+      <div class="form-group"><label>Address</label><input type="text" name="Address"></div>
       
       <div class="form-group">
         <label>Intended Use (Select Multiple)</label>
@@ -294,10 +304,10 @@
 
       <div class="form-row">
         <div class="form-group"><label>Area Category</label>
-          <select name="Area Category" id="c-areacat"><option>PLAIN AREA</option><option>HILL AREA</option><option>FOOT HILLS</option><option>ALL</option></select>
+          <select name="Area Category"><option>PLAIN AREA</option><option>HILL AREA</option><option>FOOT HILLS</option><option>ALL</option></select>
         </div>
         <div class="form-group"><label>Owner Category</label>
-          <select name="Owner Category" id="c-ownercat"><option>GENERAL</option><option>TRIBEL</option><option>BOTH</option></select>
+          <select name="Owner Category"><option>GENERAL</option><option>TRIBEL</option><option>BOTH</option></select>
         </div>
       </div>
 
@@ -308,41 +318,41 @@
       </div>
 
       <div class="form-row">
-        <div class="form-group"><label>Max Budget (₹)</label><input type="number" name="Max Budget (₹)" id="c-budget"></div>
-        <div class="form-group"><label>Min Land Size Required</label><input type="number" step="any" name="Min Land Size Required " id="c-minsize"></div>
+        <div class="form-group"><label>Max Budget (₹)</label><input type="number" name="Max Budget (₹)"></div>
+        <div class="form-group"><label>Min Land Size Required</label><input type="number" step="any" name="Min Land Size Required "></div>
       </div>
       <div class="form-row">
         <div class="form-group"><label>Preferred Unit</label>
-          <select name="Preferred Unit" id="c-unit"><option>DECIMAL</option><option>ACRE</option><option>KATHA</option><option>BIGHA</option></select>
+          <select name="Preferred Unit"><option>DECIMAL</option><option>ACRE</option><option>KATHA</option><option>BIGHA</option></select>
         </div>
         <div class="form-group"><label>Lead Status</label>
-          <select name="Lead Status" id="c-status">
+          <select name="Lead Status">
             <option>NEW</option><option>OLD</option><option>IN CONTACT</option><option>SITE VISIT PLANING</option><option>SITE VISIT DONE</option><option>PAPER VERIFICATION</option><option>NEGOTIATION</option><option>ADVANCE DONE</option><option>NEED FOLLOW UP </option><option>SEARCH FOR HIM</option><option>NOT RESPONDING</option><option>BUY ANOTHER PLOT</option><option>CLOSED - WON</option><option>CLOSED - LOST</option>
           </select>
         </div>
       </div>
-      <div class="form-group"><label>Next Follow Up Date</label><input type="date" name="Next Follow Up" id="c-followup"></div>
-      <div class="form-group"><label>Additional Notes</label><textarea rows="3" name="Additional Notes" id="c-notes"></textarea></div>
+      <div class="form-group"><label>Next Follow Up Date</label><input type="date" name="Next Follow Up"></div>
+      <div class="form-group"><label>Additional Notes</label><textarea rows="3" name="Additional Notes"></textarea></div>
       <button type="submit" class="submit-btn" id="client-submit-btn">Save Client</button>
     </form>
   </div>
 
-  <!-- FULL SCREEN PROPERTY MODAL -->
-  <div id="modal-property" class="modal">
-    <div class="modal-head">
-      <h3 id="prop-modal-title">+ Add Property</h3>
-      <i class="fa-solid fa-xmark close-icon" onclick="closeModalSafe('modal-property')"></i>
+  <!-- VIEW 7: ADD PROPERTY FORM (FULL PAGE VIEW) -->
+  <div id="view-form-property" class="page-view">
+    <div class="form-header-bar">
+      <h3>+ Add Property</h3>
+      <button class="btn-back" onclick="switchView('dashboard')"><i class="fa-solid fa-arrow-left"></i> Back</button>
     </div>
     <form id="form-property" onsubmit="handlePropertySubmit(event)">
       <div class="form-row">
         <div class="form-group"><label>Date Listed</label><input type="date" name="Date Listed" id="p-date"></div>
         <div class="form-group"><label>Available Status</label>
-          <select name="Available Status" id="p-status"><option>AVAILABLE</option><option>SOLD</option><option>HOLD </option><option>UNKNOWN</option></select>
+          <select name="Available Status"><option>AVAILABLE</option><option>SOLD</option><option>HOLD </option><option>UNKNOWN</option></select>
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Key Man *</label><input type="text" name="Key Man" id="p-keyman" required></div>
-        <div class="form-group"><label>Phone *</label><input type="tel" name="Phone" id="p-phone" required></div>
+        <div class="form-group"><label>Key Man *</label><input type="text" name="Key Man" required></div>
+        <div class="form-group"><label>Phone *</label><input type="tel" name="Phone" required></div>
       </div>
 
       <div class="form-group">
@@ -353,10 +363,10 @@
 
       <div class="form-row">
         <div class="form-group"><label>Area Category</label>
-          <select name="Area Category" id="p-areacat"><option>PLAIN AREA</option><option>HILL AREA</option><option>BOTH AREA</option></select>
+          <select name="Area Category"><option>PLAIN AREA</option><option>HILL AREA</option><option>BOTH AREA</option></select>
         </div>
         <div class="form-group"><label>Owner Category</label>
-          <select name="Owner Category" id="p-ownercat"><option>GENERAL</option><option>TRIBEL</option><option>BOTH</option></select>
+          <select name="Owner Category"><option>GENERAL</option><option>TRIBEL</option><option>BOTH</option></select>
         </div>
       </div>
 
@@ -376,7 +386,7 @@
         <div class="form-group"><label>Price / Unit (₹)</label><input type="number" step="any" name="Price Per Unit " id="p-priceunit" oninput="calcTotals()"></div>
         <div class="form-group"><label>Total Price (₹)</label><input type="number" step="any" name="Total Price" id="p-totalprice"></div>
       </div>
-      <div class="form-group"><label>Address Of Property</label><input type="text" name="Address Of Property" id="p-address"></div>
+      <div class="form-group"><label>Address Of Property</label><input type="text" name="Address Of Property"></div>
 
       <div class="form-group">
         <label>Owner Details Available</label>
@@ -391,63 +401,63 @@
       </div>
 
       <div class="form-row">
-        <div class="form-group"><label>Road Infra</label><input type="text" name="Road Infra" id="p-road" placeholder="e.g. 16 Ft Pitch"></div>
-        <div class="form-group"><label>Water Infra</label><input type="text" name="Water Infra" id="p-water" placeholder="e.g. PHE / Well"></div>
+        <div class="form-group"><label>Road Infra</label><input type="text" name="Road Infra" placeholder="e.g. 16 Ft Pitch"></div>
+        <div class="form-group"><label>Water Infra</label><input type="text" name="Water Infra" placeholder="e.g. PHE / Well"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Electricity Infra</label><input type="text" name="Electricity Infra" id="p-elec" placeholder="e.g. Available"></div>
-        <div class="form-group"><label>Dispute Details</label><input type="text" name="Dispute Details" id="p-dispute" placeholder="Clear / Dispute note"></div>
+        <div class="form-group"><label>Electricity Infra</label><input type="text" name="Electricity Infra" placeholder="e.g. Available"></div>
+        <div class="form-group"><label>Dispute Details</label><input type="text" name="Dispute Details" placeholder="Clear / Dispute note"></div>
       </div>
       <div class="form-row">
         <div class="form-group"><label>Media Taken</label>
-          <select name="Media Taken" id="p-media"><option>No</option><option>Yes</option></select>
+          <select name="Media Taken"><option>No</option><option>Yes</option></select>
         </div>
         <div class="form-group"><label>Google Location</label>
-          <select name="Google Location" id="p-gloc"><option>No</option><option>Yes</option></select>
+          <select name="Google Location"><option>No</option><option>Yes</option></select>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group"><label>WhatsApp Updated</label>
-          <select name="Whatsapp Updated" id="p-wa"><option>No</option><option>Yes</option></select>
+          <select name="Whatsapp Updated"><option>No</option><option>Yes</option></select>
         </div>
         <div class="form-group"><label>Verified</label>
-          <select name="Verified" id="p-verified"><option>No</option><option>Yes</option></select>
+          <select name="Verified"><option>No</option><option>Yes</option></select>
         </div>
       </div>
-      <div class="form-group"><label>Additional Notes</label><textarea rows="3" name="Additional Notes" id="p-notes"></textarea></div>
+      <div class="form-group"><label>Additional Notes</label><textarea rows="3" name="Additional Notes"></textarea></div>
       <button type="submit" class="submit-btn" id="prop-submit-btn">Save Property</button>
     </form>
   </div>
 
-  <!-- FULL SCREEN TASK MODAL -->
-  <div id="modal-task" class="modal">
-    <div class="modal-head">
-      <h3 id="task-modal-title">+ Add Task</h3>
-      <i class="fa-solid fa-xmark close-icon" onclick="closeModalSafe('modal-task')"></i>
+  <!-- VIEW 8: ADD TASK FORM (FULL PAGE VIEW) -->
+  <div id="view-form-task" class="page-view">
+    <div class="form-header-bar">
+      <h3>+ Add Task</h3>
+      <button class="btn-back" onclick="switchView('dashboard')"><i class="fa-solid fa-arrow-left"></i> Back</button>
     </div>
     <form id="form-task" onsubmit="handleTaskSubmit(event)">
       <div class="form-row">
         <div class="form-group"><label>Date *</label><input type="date" name="Date" id="t-date" required></div>
-        <div class="form-group"><label>Time</label><input type="text" name="Time" id="t-time" placeholder="e.g. 11:30 AM"></div>
+        <div class="form-group"><label>Time</label><input type="text" name="Time" placeholder="e.g. 11:30 AM"></div>
       </div>
-      <div class="form-group"><label>Task Description *</label><input type="text" name="Task" id="t-desc" required></div>
+      <div class="form-group"><label>Task Description *</label><input type="text" name="Task" required></div>
       <div class="form-row">
         <div class="form-group"><label>Task Type</label>
-          <select name="Task Type" id="t-type" onchange="toggleTaskOther(this.value)"><option>CLIENT RELETED</option><option>PROPERTY RELETED</option><option>BOTH</option><option>OTHERS</option></select>
+          <select name="Task Type" onchange="document.getElementById('t-type-other').style.display = (this.value==='OTHERS'?'block':'none');"><option>CLIENT RELETED</option><option>PROPERTY RELETED</option><option>BOTH</option><option>OTHERS</option></select>
         </div>
         <div class="form-group"><label>Assigned Team</label>
-          <select name="Assigned Team" id="t-assigned"><option>BIKASH</option><option>ANWAR</option><option>BOTH</option><option>OTHERS</option></select>
+          <select name="Assigned Team"><option>BIKASH</option><option>ANWAR</option><option>BOTH</option><option>OTHERS</option></select>
         </div>
       </div>
       <input type="text" id="t-type-other" placeholder="Specify if other type..." style="display:none; margin-bottom:12px;">
-      <div class="form-group"><label>Place</label><input type="text" name="Place" id="t-place"></div>
+      <div class="form-group"><label>Place</label><input type="text" name="Place"></div>
       <div class="form-row">
         <div class="form-group"><label>Task Status</label>
-          <select name="Task Status" id="t-status"><option>POSTPOND</option><option>DONE</option><option>CANCEL</option></select>
+          <select name="Task Status"><option>POSTPOND</option><option>DONE</option><option>CANCEL</option></select>
         </div>
-        <div class="form-group"><label>Next Follow up Date</label><input type="date" name="Next Follow up Date" id="t-nextdate"></div>
+        <div class="form-group"><label>Next Follow up Date</label><input type="date" name="Next Follow up Date"></div>
       </div>
-      <div class="form-group"><label>Outcome</label><textarea rows="2" name="Outcome" id="t-outcome"></textarea></div>
+      <div class="form-group"><label>Outcome</label><textarea rows="2" name="Outcome"></textarea></div>
       <button type="submit" class="submit-btn" id="task-submit-btn">Save Task</button>
     </form>
   </div>
@@ -464,6 +474,7 @@
   <script>
     // ⬇️ REPLACE THIS WITH YOUR DEPLOYED GOOGLE APPS SCRIPT URL:
     const API_URL = "
+
 https://script.google.com/macros/s/AKfycbyFvWyPLax_fS5d4EQJ0eXoXuhpAPZ4vGlR68GVVuLsgCCDpHlLNXK5JHaVqG-e5J4gKg/exec";
 
     const INTENDED_USES = ['RESIDENT', 'SECOND HOME', 'HOUSING PROJECT', 'FARM HOUSE', 'INVESTMENT', 'RESORT', 'HOMESTAY', 'TOURISM', 'HOTEL', 'ASHRAM', 'TEA GARDEN', 'FARMING', 'POULTRY FARMING', 'HATACHERY', 'FISHARY', 'SCHOOL', 'HOSPITAL', 'RESTURENT', 'OTHERS'];
@@ -472,6 +483,41 @@ https://script.google.com/macros/s/AKfycbyFvWyPLax_fS5d4EQJ0eXoXuhpAPZ4vGlR68GVV
 
     let db = { Client: [], Property: [], Task: [] };
 
+    // View Switcher (Switches smoothly between dashboard, lists, and forms)
+    function switchView(viewName) {
+      window.scrollTo(0, 0);
+      document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+      
+      const target = document.getElementById('view-' + viewName);
+      if (target) target.classList.add('active');
+
+      const tabs = { 'dashboard': 0, 'clients': 1, 'properties': 2, 'tasks': 3, 'followups': 4 };
+      if (tabs[viewName] !== undefined) {
+        document.querySelectorAll('.nav-tab')[tabs[viewName]].classList.add('active');
+      }
+    }
+
+    // Direct Form Openers
+    function openAddClientForm() {
+      switchView('form-client');
+      const d = document.getElementById('c-date');
+      if (d) d.value = new Date().toISOString().split('T')[0];
+    }
+
+    function openAddPropertyForm() {
+      switchView('form-property');
+      const d = document.getElementById('p-date');
+      if (d) d.value = new Date().toISOString().split('T')[0];
+    }
+
+    function openAddTaskForm() {
+      switchView('form-task');
+      const d = document.getElementById('t-date');
+      if (d) d.value = new Date().toISOString().split('T')[0];
+    }
+
+    // Multi-select Chips
     function buildChips(containerId, list, otherInputId) {
       const container = document.getElementById(containerId);
       if (!container) return;
@@ -495,54 +541,15 @@ https://script.google.com/macros/s/AKfycbyFvWyPLax_fS5d4EQJ0eXoXuhpAPZ4vGlR68GVV
       return selected.join(', ');
     }
 
-    function openModalSafe(id) {
-      const el = document.getElementById(id);
-      if (el) el.style.display = 'block';
-    }
-
-    function closeModalSafe(id) {
-      const el = document.getElementById(id);
-      if (el) el.style.display = 'none';
-    }
-
-    function openClientModalSafe() {
-      const form = document.getElementById('form-client');
-      if (form) form.reset();
-      document.getElementById('c-date').value = new Date().toISOString().split('T')[0];
-      document.querySelectorAll('#client-intended-chips .chip-item, #client-specialty-chips .chip-item, #client-location-chips .chip-item')
-        .forEach(el => el.classList.remove('selected'));
-      openModalSafe('modal-client');
-    }
-
-    function openPropertyModalSafe() {
-      const form = document.getElementById('form-property');
-      if (form) form.reset();
-      document.getElementById('p-date').value = new Date().toISOString().split('T')[0];
-      document.querySelectorAll('#prop-specialty-chips .chip-item, #prop-location-chips .chip-item')
-        .forEach(el => el.classList.remove('selected'));
-      openModalSafe('modal-property');
-    }
-
-    function openTaskModalSafe() {
-      const form = document.getElementById('form-task');
-      if (form) form.reset();
-      document.getElementById('t-date').value = new Date().toISOString().split('T')[0];
-      openModalSafe('modal-task');
-    }
-
-    function toggleTaskOther(val) {
-      document.getElementById('t-type-other').style.display = val === 'OTHERS' ? 'block' : 'none';
-    }
-
     function calcTotals() {
       const size = parseFloat(document.getElementById('p-size').value) || 0;
       const unitPrice = parseFloat(document.getElementById('p-priceunit').value) || 0;
-      if (size && unitPrice && !document.getElementById('p-totalprice').value) {
+      if (size && unitPrice) {
         document.getElementById('p-totalprice').value = Math.round(size * unitPrice);
       }
     }
 
-    // Direct Browser-to-GAS Post (no-cors mode guarantees delivery)
+    // Direct Save Function
     async function directSaveToSheet(type, data) {
       document.getElementById('status-text').innerText = `Saving ${type} to Google Sheets...`;
       try {
@@ -552,42 +559,30 @@ https://script.google.com/macros/s/AKfycbyFvWyPLax_fS5d4EQJ0eXoXuhpAPZ4vGlR68GVV
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ action: 'add', type: type, data: data })
         });
-      } catch (err) {
-        console.log("Transmission sent");
-      }
+      } catch (err) {}
       setTimeout(fetchData, 2000);
     }
 
-    // 1. SAVE CLIENT HANDLER
+    // Handlers
     function handleClientSubmit(e) {
       e.preventDefault();
-      const btn = document.getElementById('client-submit-btn');
-      btn.innerText = "Saving Client...";
-      btn.disabled = true;
-
       const form = e.target;
       const data = Object.fromEntries(new FormData(form));
       data['Intended Use'] = getSelectedChips('client-intended-chips', 'c-intended-other');
       data['Specialty'] = getSelectedChips('client-specialty-chips', 'c-specialty-other');
       data['Location'] = getSelectedChips('client-location-chips', 'c-location-other');
 
-      // Close modal and notify immediately
-      closeModalSafe('modal-client');
+      form.reset();
+      document.querySelectorAll('#client-intended-chips .chip-item, #client-specialty-chips .chip-item, #client-location-chips .chip-item')
+        .forEach(el => el.classList.remove('selected'));
+
+      switchView('dashboard');
       alert("Client saved! Updating dashboard...");
-
       directSaveToSheet('Client', data);
-
-      btn.innerText = "Save Client";
-      btn.disabled = false;
     }
 
-    // 2. SAVE PROPERTY HANDLER
     function handlePropertySubmit(e) {
       e.preventDefault();
-      const btn = document.getElementById('prop-submit-btn');
-      btn.innerText = "Saving Property...";
-      btn.disabled = true;
-
       const form = e.target;
       const data = Object.fromEntries(new FormData(form));
       data.Specialty = getSelectedChips('prop-specialty-chips', 'p-specialty-other');
@@ -595,40 +590,30 @@ https://script.google.com/macros/s/AKfycbyFvWyPLax_fS5d4EQJ0eXoXuhpAPZ4vGlR68GVV
       const ownerChecks = Array.from(document.querySelectorAll('#owner-details-grid input:checked')).map(cb => cb.value);
       data['Owner Details'] = ownerChecks.join(', ');
 
-      // Close modal and notify immediately
-      closeModalSafe('modal-property');
+      form.reset();
+      document.querySelectorAll('#prop-specialty-chips .chip-item, #prop-location-chips .chip-item')
+        .forEach(el => el.classList.remove('selected'));
+
+      switchView('dashboard');
       alert("Property saved! Updating dashboard...");
-
       directSaveToSheet('Property', data);
-
-      btn.innerText = "Save Property";
-      btn.disabled = false;
     }
 
-    // 3. SAVE TASK HANDLER
     function handleTaskSubmit(e) {
       e.preventDefault();
-      const btn = document.getElementById('task-submit-btn');
-      btn.innerText = "Saving Task...";
-      btn.disabled = true;
-
       const form = e.target;
       const data = Object.fromEntries(new FormData(form));
       if (data['Task Type'] === 'OTHERS') {
         data['Task Type'] = "Other: " + (document.getElementById('t-type-other').value || '');
       }
 
-      // Close modal and notify immediately
-      closeModalSafe('modal-task');
+      form.reset();
+      switchView('dashboard');
       alert("Task saved! Updating dashboard...");
-
       directSaveToSheet('Task', data);
-
-      btn.innerText = "Save Task";
-      btn.disabled = false;
     }
 
-    // Data Fetching
+    // Data Sync
     async function fetchData() {
       document.getElementById('status-text').innerText = "Syncing with Google Sheets...";
       try {
@@ -795,13 +780,6 @@ https://script.google.com/macros/s/AKfycbyFvWyPLax_fS5d4EQJ0eXoXuhpAPZ4vGlR68GVV
         });
       } catch (e) {}
       setTimeout(fetchData, 2000);
-    }
-
-    function switchView(viewName) {
-      document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
-      const target = document.getElementById('view-' + viewName);
-      if (target) target.classList.add('active');
     }
 
     function filterList(keyword, listId) {
