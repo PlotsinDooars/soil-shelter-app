@@ -18,7 +18,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background-color: var(--bg-canvas); color: #1e293b; padding-bottom: 95px; }
+    body { background-color: var(--bg-canvas); color: #1e293b; padding-bottom: 120px; }
 
     /* --- TOP HEADER & PANORAMA HERO --- */
     .hero-container {
@@ -69,7 +69,6 @@
       white-space: nowrap;
     }
     
-    /* Locked in one single line on mobile screens */
     .brand-main {
       font-size: 15px;
       font-weight: 800;
@@ -170,7 +169,6 @@
     }
     .location-pill i { color: #3cd070; font-size: 11px; }
 
-    /* SVG Curved Bottom Wave */
     .wave-cut {
       position: absolute;
       bottom: -1px;
@@ -314,7 +312,7 @@
       pointer-events: none;
     }
 
-    /* --- LARGE ACTION CARDS (+ ADD CLIENTS, TASK, PROPERTY) --- */
+    /* --- LARGE ACTION CARDS --- */
     .action-cards-wrap {
       display: flex;
       flex-direction: column;
@@ -395,15 +393,6 @@
     .arrow-blue { background: #0284c7; }
     .arrow-pink { background: #e11d48; }
     .arrow-green { background: #059669; }
-
-    .action-bg-art {
-      position: absolute;
-      right: 48px;
-      bottom: 2px;
-      height: 48px;
-      opacity: 0.35;
-      pointer-events: none;
-    }
 
     /* --- TODAY'S TASK LIST CARD --- */
     .today-task-card {
@@ -586,6 +575,8 @@
       width: 100%; padding: 11px; border-radius: 10px; border: 1.5px solid #cbd5e1; font-size: 13px; outline: none; background: #fff;
     }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    
     .chip-container { display: flex; flex-wrap: wrap; gap: 6px; max-height: 140px; overflow-y: auto; padding: 8px; border: 1.5px solid #cbd5e1; border-radius: 10px; background: #fff; }
     .chip-item {
       font-size: 11px; padding: 5px 10px; border-radius: 16px; background: #f1f5f9; cursor: pointer; user-select: none; border: 1px solid #cbd5e1; font-weight: 600; color: #475569;
@@ -596,11 +587,24 @@
     .submit-btn { width: 100%; background: #0ea643; color: #fff; padding: 14px; border: none; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; margin-top: 10px; }
 
     .item-card { background: #fff; border-radius: 16px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; }
-    .card-actions { display: flex; gap: 8px; margin-top: 10px; padding-top: 8px; border-top: 1px dashed #e2e8f0; align-items: center; }
-    .btn-action { padding: 6px 12px; border-radius: 8px; font-size: 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; border: none; font-weight: 700; }
+    
+    /* 4-Button Grid for Client Actions */
+    .card-actions-4 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 42px;
+      gap: 6px;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed #e2e8f0;
+      align-items: center;
+    }
+
+    .btn-action { padding: 7px 8px; border-radius: 8px; font-size: 11.5px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 4px; cursor: pointer; border: none; font-weight: 700; white-space: nowrap; }
     .btn-call { background: #e0f2fe; color: #0284c7; }
     .btn-wa { background: #dcfce7; color: #059669; }
+    .btn-edit { background: #fef3c7; color: #d97706; }
     .btn-del { background: #ffe4e6; color: #e11d48; }
+
     .match-pill { display: inline-block; background: #e0f2fe; color: #0284c7; padding: 3px 8px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; margin: 2px; }
   </style>
 </head>
@@ -609,13 +613,12 @@
   <!-- VIEW 1: DASHBOARD -->
   <div id="view-dashboard" class="page-view active" style="padding: 0;">
     
-    <!-- HERO HEADER WITH PANORAMIC BACKDROP -->
+    <!-- HERO HEADER -->
     <div class="hero-container">
       <div class="top-nav-bar">
         <i class="fa-solid fa-bars menu-btn"></i>
         
         <div class="brand-group">
-          <!-- House + Leaf SVG Logo -->
           <svg class="brand-logo-svg" viewBox="0 0 100 100">
             <path d="M 50 10 L 15 42 L 25 42 L 25 85 L 75 85 L 75 42 L 85 42 Z" fill="#ffffff" opacity="0.95"/>
             <rect x="42" y="30" width="16" height="16" rx="2" fill="#02231c"/>
@@ -633,12 +636,11 @@
         </div>
 
         <div class="top-right-status">
-          <div class="sync-live-pill"><div class="pulse-dot"></div> <span id="sync-time">Synced: 12:10:32</span></div>
+          <div class="sync-live-pill"><div class="pulse-dot"></div> <span id="sync-time">Live</span></div>
           <i class="fa-solid fa-cloud-arrow-down cloud-icon"></i>
         </div>
       </div>
 
-      <!-- Slogan Banner & Region Tag -->
       <div class="panorama-content">
         <div class="slogan-badge-wrap">
           <span class="slogan-cursive">Better Plots Brighter Future</span>
@@ -650,7 +652,6 @@
         </div>
       </div>
 
-      <!-- Smooth Curve Wave Cut -->
       <div class="wave-cut">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
           <path d="M0,0 C300,90 800,90 1200,0 L1200,120 L0,120 Z" fill="#f0f4f3"></path>
@@ -662,14 +663,13 @@
     <div class="sync-bar-card">
       <div class="sync-bar-left">
         <div class="gsheet-icon"><i class="fa-solid fa-table-cells"></i></div>
-        <span id="status-text">Syncing with Google Sheets...</span>
+        <span id="status-text">Connected</span>
       </div>
       <i class="fa-solid fa-rotate sync-refresh-btn" onclick="fetchData()"></i>
     </div>
 
     <!-- 2x2 KPI GRID -->
     <div class="kpi-container">
-      <!-- 1. Total Clients -->
       <div class="kpi-box kpi-clients" onclick="switchView('clients')">
         <div class="kpi-header-row">
           <div class="kpi-badge-icon"><i class="fa-solid fa-users"></i></div>
@@ -683,7 +683,6 @@
         <i class="fa-solid fa-users kpi-watermark"></i>
       </div>
 
-      <!-- 2. Total Properties -->
       <div class="kpi-box kpi-properties" onclick="switchView('properties')">
         <div class="kpi-header-row">
           <div class="kpi-badge-icon"><i class="fa-solid fa-house-chimney"></i></div>
@@ -697,7 +696,6 @@
         <i class="fa-solid fa-house-chimney kpi-watermark"></i>
       </div>
 
-      <!-- 3. Total Task List -->
       <div class="kpi-box kpi-tasks" onclick="switchView('tasks')">
         <div class="kpi-header-row">
           <div class="kpi-badge-icon"><i class="fa-solid fa-clipboard-list"></i></div>
@@ -711,7 +709,6 @@
         <i class="fa-solid fa-clipboard-check kpi-watermark"></i>
       </div>
 
-      <!-- 4. Follow-ups Due -->
       <div class="kpi-box kpi-followups" onclick="switchView('followups')">
         <div class="kpi-header-row">
           <div class="kpi-badge-icon"><i class="fa-solid fa-calendar-days"></i></div>
@@ -726,10 +723,8 @@
       </div>
     </div>
 
-    <!-- LARGE ACTION CARDS -->
+    <!-- ACTION CARDS -->
     <div class="action-cards-wrap">
-      
-      <!-- + ADD CLIENTS -->
       <div class="big-action-card card-client-style" onclick="openAddClientForm()">
         <div style="display:flex; align-items:center;">
           <div class="card-side-bar bar-blue"></div>
@@ -739,16 +734,9 @@
             <div class="action-subtext">Create new client & manage details</div>
           </div>
         </div>
-        <svg class="action-bg-art" viewBox="0 0 100 80" fill="#0284c7">
-          <circle cx="30" cy="25" r="14"/>
-          <path d="M10 65 C10 45 50 45 50 65 Z"/>
-          <circle cx="65" cy="20" r="16"/>
-          <path d="M42 65 C42 40 88 40 88 65 Z"/>
-        </svg>
         <div class="action-arrow-btn arrow-blue"><i class="fa-solid fa-chevron-right"></i></div>
       </div>
 
-      <!-- + ADD TASK -->
       <div class="big-action-card card-task-style" onclick="openAddTaskForm()">
         <div style="display:flex; align-items:center;">
           <div class="card-side-bar bar-pink"></div>
@@ -758,15 +746,9 @@
             <div class="action-subtext">Schedule visit, call or other task</div>
           </div>
         </div>
-        <svg class="action-bg-art" viewBox="0 0 100 80" fill="#e11d48">
-          <rect x="20" y="15" width="55" height="50" rx="8" fill="none" stroke="#e11d48" stroke-width="8"/>
-          <circle cx="68" cy="55" r="18" fill="#ffe4e6" stroke="#e11d48" stroke-width="6"/>
-          <polyline points="68,46 68,55 75,55" fill="none" stroke="#e11d48" stroke-width="4"/>
-        </svg>
         <div class="action-arrow-btn arrow-pink"><i class="fa-solid fa-chevron-right"></i></div>
       </div>
 
-      <!-- + ADD PROPERTY -->
       <div class="big-action-card card-prop-style" onclick="openAddPropertyForm()">
         <div style="display:flex; align-items:center;">
           <div class="card-side-bar bar-green"></div>
@@ -776,14 +758,8 @@
             <div class="action-subtext">Add new property & manage listings</div>
           </div>
         </div>
-        <svg class="action-bg-art" viewBox="0 0 120 80" fill="#059669">
-          <polygon points="60,10 95,45 85,45 85,70 35,70 35,45 25,45"/>
-          <polygon points="15,40 25,50 20,50 20,70 10,70 10,50 5,50"/>
-          <polygon points="105,40 115,50 110,50 110,70 100,70 100,50 95,50"/>
-        </svg>
         <div class="action-arrow-btn arrow-green"><i class="fa-solid fa-chevron-right"></i></div>
       </div>
-
     </div>
 
     <!-- TODAY'S TASK LIST CARD -->
@@ -802,7 +778,6 @@
           <i class="fa-solid fa-leaf leaf-accent"></i>
         </div>
       </div>
-      
       <div id="today-tasks-container">
         <div class="today-task-row">
           <div style="display:flex; align-items:center;">
@@ -854,22 +829,27 @@
     <div id="followup-list"></div>
   </div>
 
-  <!-- VIEW 6: ADD CLIENT FORM -->
+  <!-- VIEW 6: CLIENT FORM (HANDLES BOTH ADD & EDIT) -->
   <div id="view-form-client" class="page-view">
     <div class="form-header-bar">
-      <h3>+ ADD NEW CLIENT</h3>
-      <button class="btn-back" onclick="switchView('dashboard')"><i class="fa-solid fa-arrow-left"></i> Back</button>
+      <h3 id="client-form-header-title">+ ADD NEW CLIENT</h3>
+      <button class="btn-back" onclick="switchView('clients')"><i class="fa-solid fa-arrow-left"></i> Back</button>
     </div>
     <form id="form-client" onsubmit="handleClientSubmit(event)">
+      <!-- Hidden Client ID Field for Editing -->
+      <input type="hidden" name="Client ID" id="c-id">
+
       <div class="form-row">
         <div class="form-group"><label>Date</label><input type="date" name="Date" id="c-date"></div>
-        <div class="form-group"><label>Assigned Team</label>
-          <select name="Assigned Team"><option>BIKASH</option><option>ANWAR</option><option>BOTH</option><option>OTHERS</option></select>
+        <div class="form-group"><label>Status</label>
+          <select name="Status" id="c-status">
+            <option>Follow up</option><option>Interested</option><option>New</option><option>Not Interested</option><option>Closed</option>
+          </select>
         </div>
       </div>
-      <div class="form-group"><label>Client Name *</label><input type="text" name="Name" required></div>
-      <div class="form-group"><label>Phone Number *</label><input type="tel" name="Phone" placeholder="e.g. 9876543210" required></div>
-      <div class="form-group"><label>Address</label><input type="text" name="Address"></div>
+      <div class="form-group"><label>Client Name *</label><input type="text" name="Name" id="c-name" required></div>
+      <div class="form-group"><label>Phone Number *</label><input type="tel" name="Phone" id="c-phone" placeholder="e.g. 9876543210" required></div>
+      <div class="form-group"><label>Address</label><input type="text" name="Address" id="c-address"></div>
       
       <div class="form-group">
         <label>Intended Use (Select Multiple)</label>
@@ -885,10 +865,10 @@
 
       <div class="form-row">
         <div class="form-group"><label>Area Category</label>
-          <select name="Area Category"><option>PLAIN AREA</option><option>HILL AREA</option><option>FOOT HILLS</option><option>ALL</option></select>
+          <select name="Area Category" id="c-areacat"><option>PLAIN AREA</option><option>HILLS AREA</option><option>BOTH AREA</option></select>
         </div>
         <div class="form-group"><label>Owner Category</label>
-          <select name="Owner Category"><option>GENERAL</option><option>TRIBEL</option><option>BOTH</option></select>
+          <select name="Owner Category" id="c-ownercat"><option>GENERAL</option><option>TRIBEL</option><option>BOTH</option></select>
         </div>
       </div>
 
@@ -898,22 +878,26 @@
         <input type="text" id="c-location-other" placeholder="Specify other location..." style="display:none; margin-top:6px;">
       </div>
 
-      <div class="form-row">
-        <div class="form-group"><label>Max Budget (₹)</label><input type="number" name="Max Budget (₹)"></div>
-        <div class="form-group"><label>Min Land Size Required</label><input type="number" step="any" name="Min Land Size Required "></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>Preferred Unit</label>
-          <select name="Preferred Unit"><option>DECIMAL</option><option>ACRE</option><option>KATHA</option><option>BIGHA</option></select>
-        </div>
-        <div class="form-group"><label>Lead Status</label>
-          <select name="Lead Status">
-            <option>NEW</option><option>OLD</option><option>IN CONTACT</option><option>SITE VISIT PLANING</option><option>SITE VISIT DONE</option><option>PAPER VERIFICATION</option><option>NEGOTIATION</option><option>ADVANCE DONE</option><option>NEED FOLLOW UP </option><option>SEARCH FOR HIM</option><option>NOT RESPONDING</option><option>BUY ANOTHER PLOT</option><option>CLOSED - WON</option><option>CLOSED - LOST</option>
-          </select>
+      <!-- Split: Min Size, Max Size, Size Unit -->
+      <div class="form-row-3">
+        <div class="form-group"><label>Min Size</label><input type="number" step="any" name="Min Size" id="c-minsize"></div>
+        <div class="form-group"><label>Max Size</label><input type="number" step="any" name="Max Size" id="c-maxsize"></div>
+        <div class="form-group"><label>Size Unit</label>
+          <select name="Size Unit" id="c-sizeunit"><option>Decimal</option><option>Bigha</option><option>Katha</option><option>Acre</option></select>
         </div>
       </div>
-      <div class="form-group"><label>Next Follow Up Date</label><input type="date" name="Next Follow Up"></div>
-      <div class="form-group"><label>Additional Notes</label><textarea rows="3" name="Additional Notes"></textarea></div>
+
+      <!-- Split: Min Budget, Max Budget, Budget Unit -->
+      <div class="form-row-3">
+        <div class="form-group"><label>Min Budget</label><input type="number" step="any" name="Min Budget" id="c-minbudget"></div>
+        <div class="form-group"><label>Max Budget</label><input type="number" step="any" name="Max Budget" id="c-maxbudget"></div>
+        <div class="form-group"><label>Budget Unit</label>
+          <select name="Budget Unit" id="c-budgetunit"><option>Lakh</option><option>Thousand</option><option>Crore</option></select>
+        </div>
+      </div>
+
+      <div class="form-group"><label>Next Follow Up Date</label><input type="date" name="Next Follow Up" id="c-followup"></div>
+      <div class="form-group"><label>Remarks</label><textarea rows="3" name="Remarks" id="c-remarks"></textarea></div>
       <button type="submit" class="submit-btn" id="client-submit-btn">Save Client</button>
     </form>
   </div>
@@ -937,6 +921,12 @@
       </div>
 
       <div class="form-group">
+        <label>Intended Use</label>
+        <div class="chip-container" id="prop-intended-chips"></div>
+        <input type="text" id="p-intended-other" placeholder="Specify if other..." style="display:none; margin-top:6px;">
+      </div>
+
+      <div class="form-group">
         <label>Property Specialty</label>
         <div class="chip-container" id="prop-specialty-chips"></div>
         <input type="text" id="p-specialty-other" placeholder="Specify if other..." style="display:none; margin-top:6px;">
@@ -944,7 +934,7 @@
 
       <div class="form-row">
         <div class="form-group"><label>Area Category</label>
-          <select name="Area Category"><option>PLAIN AREA</option><option>HILL AREA</option><option>BOTH AREA</option></select>
+          <select name="Area Category"><option>PLAIN AREA</option><option>HILLS AREA</option><option>BOTH AREA</option></select>
         </div>
         <div class="form-group"><label>Owner Category</label>
           <select name="Owner Category"><option>GENERAL</option><option>TRIBEL</option><option>BOTH</option></select>
@@ -958,15 +948,22 @@
       </div>
 
       <div class="form-row">
-        <div class="form-group"><label>Size</label><input type="number" step="any" name="Size" id="p-size" oninput="calcTotals()"></div>
+        <div class="form-group"><label>Size</label><input type="number" step="any" name="Size"></div>
         <div class="form-group"><label>Size Unit</label>
-          <select name="Size Unit" id="p-unit"><option>DECIMAL</option><option>ACRE</option><option>KATHA</option><option>BIGHA</option></select>
+          <select name="Size Unit"><option>Decimal</option><option>Bigha</option><option>Katha</option><option>Acre</option></select>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group"><label>Price / Unit (₹)</label><input type="number" step="any" name="Price Per Unit " id="p-priceunit" oninput="calcTotals()"></div>
-        <div class="form-group"><label>Total Price (₹)</label><input type="number" step="any" name="Total Price" id="p-totalprice"></div>
+
+      <div class="form-row-3">
+        <div class="form-group"><label>Price</label><input type="number" step="any" name="Price"></div>
+        <div class="form-group"><label>Price Unit</label>
+          <select name="Price Unit "><option>Lakh</option><option>Thousand</option><option>Crore</option></select>
+        </div>
+        <div class="form-group"><label>Per Plot Unit</label>
+          <select name="Price / Plot Unit"><option>Decimal</option><option>Bigha</option><option>Katha</option><option>Acre</option></select>
+        </div>
       </div>
+
       <div class="form-group"><label>Address Of Property</label><input type="text" name="Address Of Property"></div>
 
       <div class="form-group">
@@ -982,30 +979,25 @@
       </div>
 
       <div class="form-row">
-        <div class="form-group"><label>Road Infra</label><input type="text" name="Road Infra" placeholder="e.g. 16 Ft Pitch"></div>
-        <div class="form-group"><label>Water Infra</label><input type="text" name="Water Infra" placeholder="e.g. PHE / Well"></div>
+        <div class="form-group"><label>Road Infra</label><input type="text" name="Road Infra" placeholder="e.g. 16 Ft Kaccha / Pitch"></div>
+        <div class="form-group"><label>Water Infra</label><input type="text" name="Water Infra" placeholder="e.g. Yes / On Location"></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Electricity Infra</label><input type="text" name="Electricity Infra" placeholder="e.g. Available"></div>
-        <div class="form-group"><label>Dispute Details</label><input type="text" name="Dispute Details" placeholder="Clear / Dispute note"></div>
+        <div class="form-group"><label>Electricity Infra</label><input type="text" name="Electricity Infra" placeholder="e.g. Yes / 100 Mt"></div>
+        <div class="form-group"><label>Dispute Details</label><input type="text" name="Dispute Details" placeholder="Clear / Details"></div>
       </div>
-      <div class="form-row">
+      <div class="form-row-3">
         <div class="form-group"><label>Media Taken</label>
           <select name="Media Taken"><option>No</option><option>Yes</option></select>
         </div>
         <div class="form-group"><label>Google Location</label>
           <select name="Google Location"><option>No</option><option>Yes</option></select>
         </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>WhatsApp Updated</label>
-          <select name="Whatsapp Updated"><option>No</option><option>Yes</option></select>
-        </div>
         <div class="form-group"><label>Verified</label>
           <select name="Verified"><option>No</option><option>Yes</option></select>
         </div>
       </div>
-      <div class="form-group"><label>Additional Notes</label><textarea rows="3" name="Additional Notes"></textarea></div>
+      <div class="form-group"><label>Remarks</label><textarea rows="3" name="Remarks"></textarea></div>
       <button type="submit" class="submit-btn" id="prop-submit-btn">Save Property</button>
     </form>
   </div>
@@ -1019,26 +1011,22 @@
     <form id="form-task" onsubmit="handleTaskSubmit(event)">
       <div class="form-row">
         <div class="form-group"><label>Date *</label><input type="date" name="Date" id="t-date" required></div>
-        <div class="form-group"><label>Time</label><input type="text" name="Time" placeholder="e.g. 11:30 AM"></div>
+        <div class="form-group"><label>Time</label><input type="text" name="Time" placeholder="e.g. 10.30 AM"></div>
       </div>
       <div class="form-group"><label>Task Description *</label><input type="text" name="Task" required></div>
       <div class="form-row">
         <div class="form-group"><label>Task Type</label>
-          <select name="Task Type" onchange="document.getElementById('t-type-other').style.display = (this.value==='OTHERS'?'block':'none');"><option>CLIENT RELETED</option><option>PROPERTY RELETED</option><option>BOTH</option><option>OTHERS</option></select>
+          <select name="Task Type"><option>Clients</option><option>Properties</option><option>Both</option><option>Others</option></select>
         </div>
-        <div class="form-group"><label>Assigned Team</label>
-          <select name="Assigned Team"><option>BIKASH</option><option>ANWAR</option><option>BOTH</option><option>OTHERS</option></select>
+        <div class="form-group"><label>Who Attend</label>
+          <select name="Who Attend"><option>Bikash</option><option>Anwar</option><option>Both</option><option>Others</option></select>
         </div>
       </div>
-      <input type="text" id="t-type-other" placeholder="Specify if other type..." style="display:none; margin-bottom:12px;">
       <div class="form-group"><label>Place</label><input type="text" name="Place"></div>
-      <div class="form-row">
-        <div class="form-group"><label>Task Status</label>
-          <select name="Task Status"><option>POSTPOND</option><option>DONE</option><option>CANCEL</option></select>
-        </div>
-        <div class="form-group"><label>Next Follow up Date</label><input type="date" name="Next Follow up Date"></div>
+      <div class="form-group"><label>Status</label>
+        <select name="Status"><option>Pending</option><option>Done</option><option>Cancel</option></select>
       </div>
-      <div class="form-group"><label>Outcome</label><textarea rows="2" name="Outcome"></textarea></div>
+      <div class="form-group"><label>Remarks</label><textarea rows="2" name="Remarks"></textarea></div>
       <button type="submit" class="submit-btn" id="task-submit-btn">Save Task</button>
     </form>
   </div>
@@ -1077,9 +1065,9 @@
     // ⬇️ REPLACE THIS WITH YOUR DEPLOYED GOOGLE APPS SCRIPT URL:
     const API_URL = "https://script.google.com/macros/s/AKfycbw6lxv5g4AWkNdk_vtPNIy8YUhpz4_N229r6Ka6D25LypUVG8FJMO_Jtbs_UFlwm8DZpw/exec";
 
-    const INTENDED_USES = ['RESIDENT', 'SECOND HOME', 'HOUSING PROJECT', 'FARM HOUSE', 'INVESTMENT', 'RESORT', 'HOMESTAY', 'TOURISM', 'HOTEL', 'ASHRAM', 'TEA GARDEN', 'FARMING', 'POULTRY FARMING', 'HATACHERY', 'FISHARY', 'SCHOOL', 'HOSPITAL', 'RESTURENT', 'OTHERS'];
-    const SPECIALTIES = ['HILL WITH OUT KJ VIEW', 'HILL WITH KJ VIEW', 'PLAIN WITH HILL VIEW', 'RIVER SIDE', 'RIVER VIEW', 'FOREST VIEW', 'FOREST SIDE', 'NH 17 SIDE', 'NH 717 SIDE', 'REMOTE AREA', 'BAZAR AREA', 'DONBOSKO AREA', 'HIGH LAND', 'UPS DOWN LAND', 'SWAMP LAND', 'PADDY FIELD', 'OTHERS'];
-    const LOCATIONS = ['ALL', 'OODLABARI', 'DON BOSKO', 'TURIBARI', 'MANABARI', 'DAMDIM', 'MALBAZAR', 'BORODIGHI', 'CHALSA', 'MURTI', 'LATAGURI', 'BATABARI', 'KRANTI', 'CHILAPATA', 'HASIMARA', 'BELAKOBA', 'SHALBARI', 'GAJOLDOBA', 'SILIGURI', 'MIRIK', 'NAXALBARI', 'MATIGARA', 'SAMSING', 'JHALONG', 'BINDU', 'GORUBATHAN', 'KUWAPANI', 'PAPAD KHETI', 'LAVA', 'RESOP', 'LOLYGAON', 'KAFER', 'NOKDARA', 'NIMBONG', 'CHUIKHIM', 'PUBUNG', 'PANBU', 'CHARKHOL', 'SAMTHAR', 'SINGJEE', 'PASTING', 'JHANDI', 'MANJING', 'OTHERS'];
+    const INTENDED_USES = ['RESIDENT', 'SECOND HOME', 'HOUSING PROJECT', 'FARMHOUSE', 'INVESTMENT', 'RESORT', 'HOMESTAY', 'TOURISM', 'HOTEL', 'ASHRAM', 'TEA GARDEN', 'TEA PLANTATION', 'FARMING', 'POULTRY FARMING', 'HATACHERY', 'FISHARY', 'SCHOOL', 'HOSPITAL', 'RESTURENT', 'AGRICULTURE', 'AYURVEDA', 'FACTORY', 'OTHERS'];
+    const SPECIALTIES = ['CORE HILL', 'HILL VIEW', 'RIVER SIDE', 'PLAIN WITH HILL VIEW', 'FOREST VIEW', 'FOREST SIDE', 'NH 17 SIDE', 'NH 717 SIDE', 'REMOTE AREA', 'BAZAR AREA', 'DONBOSKO AREA', 'UP & DOWN LAND', 'SWAMP LAND', 'PADDY FIELD', 'OTHERS'];
+    const LOCATIONS = ['ALL', 'OODLABARI', 'DON BOSKO', 'TURIBARI', 'MANABARI', 'DAMDIM', 'MALBAZAR', 'BORODIGHI', 'CHALSA', 'MURTI', 'LATAGURI', 'BATABARI', 'KRANTI', 'CHILAPATA', 'HASIMARA', 'BELAKOBA', 'SHALBARI', 'GAJOLDOBA', 'SILIGURI', 'MIRIK', 'NAXALBARI', 'MATIGARA', 'SAMSING', 'JHALONG', 'BINDU', 'GORUBATHAN', 'KUWAPANI', 'PAPAD KHETI', 'LAVA', 'RESOP', 'LOLYGAON', 'KAFER', 'NOKDARA', 'NIMBONG', 'CHUIKHIM', 'PUBUNG', 'PANBU', 'CHARKHOL', 'SAMTHAR', 'SINGJEE', 'PASTING', 'JHANDI', 'MANJING', 'KALIMPONG', 'DARJEELING', 'OTHERS'];
 
     let db = { Client: [], Property: [], Task: [] };
 
@@ -1098,9 +1086,76 @@
     }
 
     function openAddClientForm() {
+      const form = document.getElementById('form-client');
+      form.reset();
+      document.getElementById('c-id').value = '';
+      document.getElementById('client-form-header-title').innerText = "+ ADD NEW CLIENT";
+      document.getElementById('client-submit-btn').innerText = "Save Client";
+      document.getElementById('c-date').value = new Date().toISOString().split('T')[0];
+      
+      document.querySelectorAll('#client-intended-chips .chip-item, #client-specialty-chips .chip-item, #client-location-chips .chip-item')
+        .forEach(el => el.classList.remove('selected'));
+      
       switchView('form-client');
-      const d = document.getElementById('c-date');
-      if (d) d.value = new Date().toISOString().split('T')[0];
+    }
+
+    // --- EDIT CLIENT HANDLER: Pre-fills all inputs and chips ---
+    function editClient(id) {
+      const client = (db.Client || []).find(c => c['Client ID'] == id);
+      if (!client) {
+        alert("Client not found!");
+        return;
+      }
+
+      document.getElementById('client-form-header-title').innerText = `EDIT CLIENT #${client['Client ID']}`;
+      document.getElementById('client-submit-btn').innerText = "Update Client";
+      document.getElementById('c-id').value = client['Client ID'] || '';
+      
+      if (client['Date']) {
+        try {
+          const d = new Date(client['Date']).toISOString().split('T')[0];
+          document.getElementById('c-date').value = d;
+        } catch(e) { document.getElementById('c-date').value = client['Date']; }
+      }
+      
+      document.getElementById('c-name').value = client['Name'] || '';
+      document.getElementById('c-phone').value = client['Phone'] || '';
+      document.getElementById('c-address').value = client['Address'] || '';
+      document.getElementById('c-status').value = client['Status'] || 'New';
+      document.getElementById('c-areacat').value = client['Area Category'] || 'PLAIN AREA';
+      document.getElementById('c-ownercat').value = client['Owner Category'] || 'GENERAL';
+      document.getElementById('c-minsize').value = client['Min Size'] || '';
+      document.getElementById('c-maxsize').value = client['Max Size'] || '';
+      document.getElementById('c-sizeunit').value = client['Size Unit'] || 'Decimal';
+      document.getElementById('c-minbudget').value = client['Min Budget'] || '';
+      document.getElementById('c-maxbudget').value = client['Max Budget'] || '';
+      document.getElementById('c-budgetunit').value = client['Budget Unit'] || 'Lakh';
+      
+      if (client['Next Follow Up']) {
+        try {
+          const f = new Date(client['Next Follow Up']).toISOString().split('T')[0];
+          document.getElementById('c-followup').value = f;
+        } catch(e) { document.getElementById('c-followup').value = client['Next Follow Up']; }
+      }
+      document.getElementById('c-remarks').value = client['Remarks'] || '';
+
+      // Highlight pre-selected chips
+      const selectChips = (containerId, textValues) => {
+        const valArr = (textValues || '').split(',').map(s => s.trim().toUpperCase());
+        document.querySelectorAll(`#${containerId} .chip-item`).forEach(chip => {
+          if (valArr.includes(chip.innerText.toUpperCase())) {
+            chip.classList.add('selected');
+          } else {
+            chip.classList.remove('selected');
+          }
+        });
+      };
+
+      selectChips('client-intended-chips', client['Intended Use']);
+      selectChips('client-specialty-chips', client['Specialty']);
+      selectChips('client-location-chips', client['Location']);
+
+      switchView('form-client');
     }
 
     function openAddPropertyForm() {
@@ -1138,22 +1193,14 @@
       return selected.join(', ');
     }
 
-    function calcTotals() {
-      const size = parseFloat(document.getElementById('p-size').value) || 0;
-      const unitPrice = parseFloat(document.getElementById('p-priceunit').value) || 0;
-      if (size && unitPrice) {
-        document.getElementById('p-totalprice').value = Math.round(size * unitPrice);
-      }
-    }
-
-    async function directSaveToSheet(type, data) {
+    async function directSaveToSheet(type, data, action = 'add', id = null) {
       document.getElementById('status-text').innerText = `Saving ${type} to Google Sheets...`;
       try {
         await fetch(API_URL, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'add', type: type, data: data })
+          body: JSON.stringify({ action: action, type: type, data: data, id: id })
         });
       } catch (err) {}
       setTimeout(fetchData, 2000);
@@ -1167,26 +1214,30 @@
       data['Specialty'] = getSelectedChips('client-specialty-chips', 'c-specialty-other');
       data['Location'] = getSelectedChips('client-location-chips', 'c-location-other');
 
+      const isEdit = Boolean(data['Client ID']);
+      const clientId = data['Client ID'];
+
       form.reset();
       document.querySelectorAll('#client-intended-chips .chip-item, #client-specialty-chips .chip-item, #client-location-chips .chip-item')
         .forEach(el => el.classList.remove('selected'));
 
-      switchView('dashboard');
-      alert("Client saved successfully! Updating dashboard...");
-      directSaveToSheet('Client', data);
+      switchView('clients');
+      alert(isEdit ? "Client updated successfully!" : "Client saved successfully!");
+      directSaveToSheet('Client', data, isEdit ? 'edit' : 'add', clientId);
     }
 
     function handlePropertySubmit(e) {
       e.preventDefault();
       const form = e.target;
       const data = Object.fromEntries(new FormData(form));
+      data['Intended Use'] = getSelectedChips('prop-intended-chips', 'p-intended-other');
       data.Specialty = getSelectedChips('prop-specialty-chips', 'p-specialty-other');
       data.Location = getSelectedChips('prop-location-chips', 'p-location-other');
       const ownerChecks = Array.from(document.querySelectorAll('#owner-details-grid input:checked')).map(cb => cb.value);
       data['Owner Details'] = ownerChecks.join(', ');
 
       form.reset();
-      document.querySelectorAll('#prop-specialty-chips .chip-item, #prop-location-chips .chip-item')
+      document.querySelectorAll('#prop-intended-chips .chip-item, #prop-specialty-chips .chip-item, #prop-location-chips .chip-item')
         .forEach(el => el.classList.remove('selected'));
 
       switchView('dashboard');
@@ -1198,9 +1249,6 @@
       e.preventDefault();
       const form = e.target;
       const data = Object.fromEntries(new FormData(form));
-      if (data['Task Type'] === 'OTHERS') {
-        data['Task Type'] = "Other: " + (document.getElementById('t-type-other').value || '');
-      }
 
       form.reset();
       switchView('dashboard');
@@ -1223,12 +1271,12 @@
 
     function runMatchmaker(client) {
       const clientLocations = (client['Location'] || '').toUpperCase();
-      const maxBudget = parseFloat(client['Max Budget (₹)']) || Infinity;
+      const maxBudget = parseFloat(client['Max Budget']) || Infinity;
 
       return (db.Property || []).filter(p => {
         const pLoc = (p['Location'] || '').toUpperCase();
-        const pPrice = parseFloat(p['Total Price']) || 0;
-        const locMatch = clientLocations.includes('ALL') || clientLocations.includes(pLoc) || pLoc.includes(clientLocations);
+        const pPrice = parseFloat(p['Price']) || 0;
+        const locMatch = !clientLocations || clientLocations.includes('ALL') || clientLocations.includes('NOT SPECIFIC') || clientLocations.includes(pLoc) || pLoc.includes(clientLocations);
         const budgetMatch = pPrice <= maxBudget;
         return locMatch && budgetMatch && (p['Available Status'] === 'AVAILABLE' || !p['Available Status']);
       }).map(p => p['Property ID']);
@@ -1268,7 +1316,7 @@
           <div class="today-task-row" style="margin-bottom:6px;">
             <div style="display:flex; align-items:center;">
               <div class="task-num-circle">${idx + 1}</div>
-              <span class="task-status-text"><b>${t.Task}</b> (${t['Time'] || 'Today'}) - <i>${t['Assigned Team'] || ''}</i></span>
+              <span class="task-status-text"><b>${t.Task}</b> (${t['Time'] || 'Today'}) - <i>${t['Who Attend'] || ''}</i></span>
             </div>
           </div>
         `).join('');
@@ -1290,6 +1338,7 @@
       renderFollowups(today);
     }
 
+    // --- RENDER CLIENTS (NOW WITH 4 SHORTCUT BUTTONS: Call, WhatsApp, Edit, Delete) ---
     function renderClients() {
       const el = document.getElementById('client-list');
       el.innerHTML = (db.Client || []).map(c => {
@@ -1300,15 +1349,19 @@
               <h4 style="font-size:15px; color:#0f172a;">${c.Name || 'Unnamed'}</h4>
               <span style="font-size:11px; background:#e0f2fe; color:#0284c7; padding:2px 8px; border-radius:10px; font-weight:700;">#${c['Client ID']}</span>
             </div>
-            <p style="font-size:12px; color:#475569; margin:4px 0;">📍 <b>Location:</b> ${c.Location || 'Any'} | <b>Budget:</b> ₹${c['Max Budget (₹)'] || 'Not Set'}</p>
-            <p style="font-size:12px; color:#475569;">🏷️ <b>Use:</b> ${c['Intended Use'] || 'General'} | <b>Status:</b> ${c['Lead Status'] || 'NEW'}</p>
+            <p style="font-size:12px; color:#475569; margin:4px 0;">📍 <b>Location:</b> ${c.Location || 'Not Specific'} | <b>Budget:</b> ${c['Min Budget'] || ''} - ${c['Max Budget'] || ''} ${c['Budget Unit'] || 'Lakh'}</p>
+            <p style="font-size:12px; color:#475569;">📏 <b>Size:</b> ${c['Min Size'] || ''} - ${c['Max Size'] || ''} ${c['Size Unit'] || ''} | <b>Status:</b> ${c['Status'] || 'New'}</p>
+            <p style="font-size:12px; color:#475569;">🏷️ <b>Use:</b> ${c['Intended Use'] || 'General'} | <i>${c['Remarks'] || ''}</i></p>
             <div style="margin-top:6px;">
               <span style="font-size:11px; color:#64748b; font-weight:600;">Matched Listings: </span>
               ${matched.length ? matched.map(id => `<span class="match-pill" onclick="viewPropertyById(${id})">#P-${id}</span>`).join('') : '<span style="font-size:11px; color:#94a3b8;">None</span>'}
             </div>
-            <div class="card-actions">
+            
+            <!-- 4 SHORTCUT BUTTONS -->
+            <div class="card-actions-4">
               <a href="tel:${c.Phone}" class="btn-action btn-call"><i class="fa-solid fa-phone"></i> Call</a>
               <a href="https://wa.me/91${c.Phone}?text=Hello%20${encodeURIComponent(c.Name)},%20regarding%20property%20requirements%20from%20Soil%20%26%20Shelter" target="_blank" class="btn-action btn-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+              <button onclick="editClient(${c['Client ID']})" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
               <button onclick="deleteRecord('Client', ${c['Client ID']})" class="btn-action btn-del"><i class="fa-solid fa-trash"></i></button>
             </div>
           </div>
@@ -1325,9 +1378,9 @@
             <span style="font-size:11px; background:#dcfce7; color:#059669; padding:2px 8px; border-radius:10px; font-weight:700;">#P-${p['Property ID']}</span>
           </div>
           <p style="font-size:12px; color:#475569; margin:4px 0;">👤 <b>Key Man:</b> ${p['Key Man']} | 📞 ${p.Phone}</p>
-          <p style="font-size:12px; color:#475569;">📏 <b>Size:</b> ${p.Size} ${p['Size Unit']} | <b>Total:</b> ₹${p['Total Price'] || '-'}</p>
+          <p style="font-size:12px; color:#475569;">📏 <b>Size:</b> ${p.Size} ${p['Size Unit']} | <b>Price:</b> ${p.Price} ${p['Price Unit '] || ''} / ${p['Price / Plot Unit'] || ''}</p>
           <p style="font-size:12px; color:#475569;">⭐ <b>Status:</b> <span style="font-weight:700; color:${p['Available Status'] === 'AVAILABLE' ? '#059669':'#e11d48'}">${p['Available Status']}</span></p>
-          <div class="card-actions">
+          <div class="card-actions-4" style="grid-template-columns: 1fr 1fr 42px;">
             <a href="tel:${p.Phone}" class="btn-action btn-call"><i class="fa-solid fa-phone"></i> Call</a>
             <a href="https://wa.me/91${p.Phone}?text=Hello,%20regarding%20property%20at%20${encodeURIComponent(p.Location)}" target="_blank" class="btn-action btn-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
             <button onclick="deleteRecord('Property', ${p['Property ID']})" class="btn-action btn-del"><i class="fa-solid fa-trash"></i></button>
@@ -1342,8 +1395,9 @@
         <div class="item-card">
           <h4 style="font-size:15px; color:#0f172a;">${t.Task}</h4>
           <p style="font-size:12px; color:#475569; margin:4px 0;">📅 ${t.Date || ''} ${t.Time || ''} | 📍 ${t.Place || '-'}</p>
-          <p style="font-size:12px; color:#475569;">Team: <b>${t['Assigned Team'] || ''}</b> | Status: <b>${t['Task Status'] || ''}</b></p>
-          <div class="card-actions">
+          <p style="font-size:12px; color:#475569;">Attended By: <b>${t['Who Attend'] || ''}</b> | Status: <b>${t['Status'] || ''}</b></p>
+          <p style="font-size:12px; color:#64748b;"><i>${t['Remarks'] || ''}</i></p>
+          <div class="card-actions-4" style="grid-template-columns: 1fr;">
             <button onclick="deleteRecord('Task', '${t.Task}')" class="btn-action btn-del"><i class="fa-solid fa-trash"></i> Delete</button>
           </div>
         </div>
@@ -1360,10 +1414,11 @@
       el.innerHTML = due.map(c => `
         <div class="item-card" style="border-left: 4px solid #7c3aed;">
           <h4 style="font-size:15px; color:#0f172a;">${c.Name} (Due: ${c['Next Follow Up'].toString().split('T')[0]})</h4>
-          <p style="font-size:12px; color:#475569; margin:4px 0;">Status: <b>${c['Lead Status']}</b> | Phone: ${c.Phone}</p>
-          <div class="card-actions">
+          <p style="font-size:12px; color:#475569; margin:4px 0;">Status: <b>${c['Status']}</b> | Phone: ${c.Phone}</p>
+          <div class="card-actions-4" style="grid-template-columns: 1fr 1fr 1fr;">
             <a href="tel:${c.Phone}" class="btn-action btn-call"><i class="fa-solid fa-phone"></i> Call</a>
             <a href="https://wa.me/91${c.Phone}" target="_blank" class="btn-action btn-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+            <button onclick="editClient(${c['Client ID']})" class="btn-action btn-edit"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
           </div>
         </div>
       `).join('');
@@ -1402,6 +1457,7 @@
       buildChips('client-intended-chips', INTENDED_USES, 'c-intended-other');
       buildChips('client-specialty-chips', SPECIALTIES, 'c-specialty-other');
       buildChips('client-location-chips', LOCATIONS, 'c-location-other');
+      buildChips('prop-intended-chips', INTENDED_USES, 'p-intended-other');
       buildChips('prop-specialty-chips', SPECIALTIES, 'p-specialty-other');
       buildChips('prop-location-chips', LOCATIONS, 'p-location-other');
       fetchData();
