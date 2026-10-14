@@ -18,7 +18,17 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background-color: var(--bg-canvas); color: #1e293b; padding-bottom: 120px; }
+    
+    html, body {
+      min-height: 100vh;
+      background-color: var(--bg-canvas);
+      color: #1e293b;
+      position: relative;
+    }
+
+    body {
+      padding-bottom: 110px;
+    }
 
     /* --- TOP HEADER & PANORAMA HERO --- */
     .hero-container {
@@ -122,7 +132,6 @@
 
     .cloud-icon { font-size: 16px; color: #e2e8f0; flex-shrink: 0; }
 
-    /* Panorama Scenic Area & Badges */
     .panorama-content {
       padding: 20px 16px 20px 16px;
       display: flex;
@@ -489,7 +498,7 @@
       flex-shrink: 0;
     }
 
-    /* --- FLOATING BOTTOM NAVIGATION DOCK --- */
+    /* --- FLOATING BOTTOM NAVIGATION DOCK (PINNED TO BOTTOM) --- */
     .bottom-dock {
       position: fixed;
       bottom: 0;
@@ -501,7 +510,7 @@
       align-items: center;
       justify-content: space-around;
       padding: 0 8px;
-      box-shadow: 0 -4px 16px rgba(0,0,0,0.2);
+      box-shadow: 0 -4px 16px rgba(0,0,0,0.25);
       z-index: 10000;
       border-top: 1px solid rgba(255,255,255,0.08);
     }
@@ -836,7 +845,6 @@
       <button class="btn-back" onclick="switchView('clients')"><i class="fa-solid fa-arrow-left"></i> Back</button>
     </div>
     <form id="form-client" onsubmit="handleClientSubmit(event)">
-      <!-- Hidden Client ID Field for Editing -->
       <input type="hidden" name="Client ID" id="c-id">
 
       <div class="form-row">
@@ -878,7 +886,6 @@
         <input type="text" id="c-location-other" placeholder="Specify other location..." style="display:none; margin-top:6px;">
       </div>
 
-      <!-- Split: Min Size, Max Size, Size Unit -->
       <div class="form-row-3">
         <div class="form-group"><label>Min Size</label><input type="number" step="any" name="Min Size" id="c-minsize"></div>
         <div class="form-group"><label>Max Size</label><input type="number" step="any" name="Max Size" id="c-maxsize"></div>
@@ -887,7 +894,6 @@
         </div>
       </div>
 
-      <!-- Split: Min Budget, Max Budget, Budget Unit -->
       <div class="form-row-3">
         <div class="form-group"><label>Min Budget</label><input type="number" step="any" name="Min Budget" id="c-minbudget"></div>
         <div class="form-group"><label>Max Budget</label><input type="number" step="any" name="Max Budget" id="c-maxbudget"></div>
@@ -1063,7 +1069,7 @@
 
   <script>
     // ⬇️ REPLACE THIS WITH YOUR DEPLOYED GOOGLE APPS SCRIPT URL:
-    const API_URL = "https://script.google.com/macros/s/AKfycbw6lxv5g4AWkNdk_vtPNIy8YUhpz4_N229r6Ka6D25LypUVG8FJMO_Jtbs_UFlwm8DZpw/exec";
+    const API_URL = "PASTE_YOUR_COPIED_URL_HERE";
 
     const INTENDED_USES = ['RESIDENT', 'SECOND HOME', 'HOUSING PROJECT', 'FARMHOUSE', 'INVESTMENT', 'RESORT', 'HOMESTAY', 'TOURISM', 'HOTEL', 'ASHRAM', 'TEA GARDEN', 'TEA PLANTATION', 'FARMING', 'POULTRY FARMING', 'HATACHERY', 'FISHARY', 'SCHOOL', 'HOSPITAL', 'RESTURENT', 'AGRICULTURE', 'AYURVEDA', 'FACTORY', 'OTHERS'];
     const SPECIALTIES = ['CORE HILL', 'HILL VIEW', 'RIVER SIDE', 'PLAIN WITH HILL VIEW', 'FOREST VIEW', 'FOREST SIDE', 'NH 17 SIDE', 'NH 717 SIDE', 'REMOTE AREA', 'BAZAR AREA', 'DONBOSKO AREA', 'UP & DOWN LAND', 'SWAMP LAND', 'PADDY FIELD', 'OTHERS'];
@@ -1099,7 +1105,6 @@
       switchView('form-client');
     }
 
-    // --- EDIT CLIENT HANDLER: Pre-fills all inputs and chips ---
     function editClient(id) {
       const client = (db.Client || []).find(c => c['Client ID'] == id);
       if (!client) {
@@ -1139,7 +1144,6 @@
       }
       document.getElementById('c-remarks').value = client['Remarks'] || '';
 
-      // Highlight pre-selected chips
       const selectChips = (containerId, textValues) => {
         const valArr = (textValues || '').split(',').map(s => s.trim().toUpperCase());
         document.querySelectorAll(`#${containerId} .chip-item`).forEach(chip => {
@@ -1338,7 +1342,6 @@
       renderFollowups(today);
     }
 
-    // --- RENDER CLIENTS (NOW WITH 4 SHORTCUT BUTTONS: Call, WhatsApp, Edit, Delete) ---
     function renderClients() {
       const el = document.getElementById('client-list');
       el.innerHTML = (db.Client || []).map(c => {
@@ -1357,7 +1360,6 @@
               ${matched.length ? matched.map(id => `<span class="match-pill" onclick="viewPropertyById(${id})">#P-${id}</span>`).join('') : '<span style="font-size:11px; color:#94a3b8;">None</span>'}
             </div>
             
-            <!-- 4 SHORTCUT BUTTONS -->
             <div class="card-actions-4">
               <a href="tel:${c.Phone}" class="btn-action btn-call"><i class="fa-solid fa-phone"></i> Call</a>
               <a href="https://wa.me/91${c.Phone}?text=Hello%20${encodeURIComponent(c.Name)},%20regarding%20property%20requirements%20from%20Soil%20%26%20Shelter" target="_blank" class="btn-action btn-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
