@@ -34,72 +34,102 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 16px;
+      padding: 0 14px;
       margin-bottom: 12px;
+      gap: 8px;
     }
 
-    .menu-btn { font-size: 24px; color: #fff; cursor: pointer; }
+    .menu-btn { font-size: 22px; color: #fff; cursor: pointer; flex-shrink: 0; }
 
     .brand-group {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      min-width: 0;
+      flex-shrink: 1;
     }
 
     .brand-logo-svg {
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     }
 
-    .brand-text { display: flex; flex-direction: column; }
-    .brand-author { font-size: 11px; font-weight: 600; letter-spacing: 0.3px; color: #e2e8f0; }
-    .brand-main {
-      font-size: 19px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      line-height: 1.1;
+    .brand-text {
       display: flex;
-      gap: 4px;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .brand-author {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: #e2e8f0;
+      white-space: nowrap;
+    }
+    
+    /* Locked in one single line on mobile screens */
+    .brand-main {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      line-height: 1.15;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      white-space: nowrap;
+      overflow: hidden;
     }
     .brand-main .white { color: #ffffff; }
     .brand-main .green { color: #3cd070; }
-    .brand-tagline { font-size: 10px; font-weight: 500; color: #cbd5e1; }
+    .brand-tagline {
+      font-size: 9px;
+      font-weight: 500;
+      color: #cbd5e1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     .top-right-status {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
+      flex-shrink: 0;
     }
 
     .sync-live-pill {
       display: flex;
       align-items: center;
-      gap: 5px;
-      background: rgba(0, 0, 0, 0.4);
+      gap: 4px;
+      background: rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(4px);
-      padding: 4px 9px;
+      padding: 4px 8px;
       border-radius: 20px;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 600;
       border: 1px solid rgba(255,255,255,0.15);
+      white-space: nowrap;
     }
     .pulse-dot {
-      width: 7px;
-      height: 7px;
+      width: 6px;
+      height: 6px;
       background-color: #3cd070;
       border-radius: 50%;
       box-shadow: 0 0 6px #3cd070;
+      flex-shrink: 0;
     }
 
-    .cloud-icon { font-size: 17px; color: #e2e8f0; }
+    .cloud-icon { font-size: 16px; color: #e2e8f0; flex-shrink: 0; }
 
     /* Panorama Scenic Area & Badges */
     .panorama-content {
-      padding: 24px 16px 20px 16px;
+      padding: 20px 16px 20px 16px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      gap: 8px;
     }
 
     .slogan-badge-wrap {
@@ -108,12 +138,13 @@
     }
     .slogan-cursive {
       font-family: 'Caveat', cursive;
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 700;
       color: #ffffff;
       text-shadow: 1px 2px 4px rgba(0,0,0,0.6);
       transform: rotate(-3deg);
       display: block;
+      line-height: 1.1;
     }
     .slogan-swoosh {
       height: 4px;
@@ -127,16 +158,17 @@
       background: #032b23;
       border: 1.5px solid rgba(255,255,255,0.25);
       border-radius: 22px;
-      padding: 5px 12px;
+      padding: 5px 10px;
       display: flex;
       align-items: center;
       gap: 6px;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       color: #ffffff;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      white-space: nowrap;
     }
-    .location-pill i { color: #3cd070; font-size: 12px; }
+    .location-pill i { color: #3cd070; font-size: 11px; }
 
     /* SVG Curved Bottom Wave */
     .wave-cut {
@@ -228,15 +260,15 @@
       margin-bottom: 6px;
     }
     .kpi-badge-icon {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       background: rgba(255,255,255,0.22);
       border: 1.5px solid rgba(255,255,255,0.4);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 18px;
       color: #ffffff;
     }
     .kpi-chevron-circle {
@@ -259,7 +291,7 @@
       opacity: 0.95;
     }
     .kpi-number {
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 800;
       line-height: 1.1;
       margin: 2px 0;
@@ -273,7 +305,6 @@
       opacity: 0.9;
     }
 
-    /* Subdued watermark illustration in KPI */
     .kpi-watermark {
       position: absolute;
       right: -8px;
@@ -305,35 +336,29 @@
       border: 1px solid rgba(0,0,0,0.05);
     }
 
-    /* Soft Pastel Gradients Matching Exact Image */
-    .card-client-style {
-      background: linear-gradient(90deg, #ffffff 60%, #e0f2fe 100%);
-    }
-    .card-task-style {
-      background: linear-gradient(90deg, #ffffff 60%, #ffe4e6 100%);
-    }
-    .card-prop-style {
-      background: linear-gradient(90deg, #ffffff 60%, #dcfce7 100%);
-    }
+    .card-client-style { background: linear-gradient(90deg, #ffffff 60%, #e0f2fe 100%); }
+    .card-task-style { background: linear-gradient(90deg, #ffffff 60%, #ffe4e6 100%); }
+    .card-prop-style { background: linear-gradient(90deg, #ffffff 60%, #dcfce7 100%); }
 
     .card-side-bar {
       width: 4px;
       height: 38px;
       border-radius: 4px;
       margin-right: 12px;
+      flex-shrink: 0;
     }
     .bar-blue { background: #0284c7; }
     .bar-pink { background: #e11d48; }
     .bar-green { background: #059669; }
 
     .action-icon-circle {
-      width: 46px;
-      height: 46px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 19px;
       margin-right: 12px;
       flex-shrink: 0;
     }
@@ -460,6 +485,7 @@
       align-items: center;
       justify-content: center;
       margin-right: 10px;
+      flex-shrink: 0;
     }
     .task-status-text {
       font-size: 12px;
@@ -471,6 +497,7 @@
       color: #0284c7;
       font-size: 16px;
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     /* --- FLOATING BOTTOM NAVIGATION DOCK --- */
@@ -510,7 +537,6 @@
       background: rgba(255,255,255,0.12);
     }
 
-    /* Active Highlight (Pill Shape) */
     .dock-pill-active {
       background: #0ea643;
       border-radius: 24px;
@@ -598,13 +624,16 @@
           </svg>
           <div class="brand-text">
             <span class="brand-author">Bikash & Anwar's</span>
-            <span class="brand-main"><span class="white">SOIL &</span> <span class="green">SHELTER</span></span>
+            <span class="brand-main">
+              <span class="white">SOIL</span>
+              <span class="green">& SHELTER</span>
+            </span>
             <span class="brand-tagline">your complete property consultant</span>
           </div>
         </div>
 
         <div class="top-right-status">
-          <div class="sync-live-pill"><div class="pulse-dot"></div> <span id="sync-time">Synced: 15:21:39</span></div>
+          <div class="sync-live-pill"><div class="pulse-dot"></div> <span id="sync-time">Synced: 12:10:32</span></div>
           <i class="fa-solid fa-cloud-arrow-down cloud-icon"></i>
         </div>
       </div>
@@ -648,7 +677,7 @@
         </div>
         <div>
           <div class="kpi-title">TOTAL CLIENTS</div>
-          <div class="kpi-number" id="cnt-clients">23</div>
+          <div class="kpi-number" id="cnt-clients">0</div>
           <div class="kpi-sub-badge"><span style="color:#4ade80;">●</span> Live Count</div>
         </div>
         <i class="fa-solid fa-users kpi-watermark"></i>
@@ -662,7 +691,7 @@
         </div>
         <div>
           <div class="kpi-title">TOTAL PROPERTIES</div>
-          <div class="kpi-number" id="cnt-properties">25</div>
+          <div class="kpi-number" id="cnt-properties">0</div>
           <div class="kpi-sub-badge"><i class="fa-solid fa-location-dot" style="color:#fde047;"></i> Active Listings</div>
         </div>
         <i class="fa-solid fa-house-chimney kpi-watermark"></i>
@@ -676,7 +705,7 @@
         </div>
         <div>
           <div class="kpi-title">TOTAL TASK LIST</div>
-          <div class="kpi-number" id="cnt-tasks">1</div>
+          <div class="kpi-number" id="cnt-tasks">0</div>
           <div class="kpi-sub-badge"><i class="fa-regular fa-clock"></i> Tasks Logged</div>
         </div>
         <i class="fa-solid fa-clipboard-check kpi-watermark"></i>
@@ -690,8 +719,8 @@
         </div>
         <div>
           <div class="kpi-title">FOLLOW-UPS DUE</div>
-          <div class="kpi-number" id="cnt-followups">11</div>
-          <div class="kpi-sub-badge"><i class="fa-solid fa-bell"></i> <span id="cnt-overdue">3 Overdue</span></div>
+          <div class="kpi-number" id="cnt-followups">0</div>
+          <div class="kpi-sub-badge"><i class="fa-solid fa-bell"></i> <span id="cnt-overdue">0 Overdue</span></div>
         </div>
         <i class="fa-solid fa-bell kpi-watermark"></i>
       </div>
@@ -710,7 +739,6 @@
             <div class="action-subtext">Create new client & manage details</div>
           </div>
         </div>
-        <!-- Watermark Art -->
         <svg class="action-bg-art" viewBox="0 0 100 80" fill="#0284c7">
           <circle cx="30" cy="25" r="14"/>
           <path d="M10 65 C10 45 50 45 50 65 Z"/>
@@ -730,7 +758,6 @@
             <div class="action-subtext">Schedule visit, call or other task</div>
           </div>
         </div>
-        <!-- Watermark Art -->
         <svg class="action-bg-art" viewBox="0 0 100 80" fill="#e11d48">
           <rect x="20" y="15" width="55" height="50" rx="8" fill="none" stroke="#e11d48" stroke-width="8"/>
           <circle cx="68" cy="55" r="18" fill="#ffe4e6" stroke="#e11d48" stroke-width="6"/>
@@ -749,7 +776,6 @@
             <div class="action-subtext">Add new property & manage listings</div>
           </div>
         </div>
-        <!-- Watermark Art -->
         <svg class="action-bg-art" viewBox="0 0 120 80" fill="#059669">
           <polygon points="60,10 95,45 85,45 85,70 35,70 35,45 25,45"/>
           <polygon points="15,40 25,50 20,50 20,70 10,70 10,50 5,50"/>
@@ -1049,7 +1075,7 @@
 
   <script>
     // ⬇️ REPLACE THIS WITH YOUR DEPLOYED GOOGLE APPS SCRIPT URL:
-    const API_URL = "https://script.google.com/macros/s/AKfycbzCPZu0t0PLD9SL-HxK23G1eNOHAVAoBNR00fD59hbtBhZHkIMM3wsWsJ7PtXSZe_2-mQ/exec";
+    const API_URL = "YOUR_GAS_WEBAPP_URL_HERE";
 
     const INTENDED_USES = ['RESIDENT', 'SECOND HOME', 'HOUSING PROJECT', 'FARM HOUSE', 'INVESTMENT', 'RESORT', 'HOMESTAY', 'TOURISM', 'HOTEL', 'ASHRAM', 'TEA GARDEN', 'FARMING', 'POULTRY FARMING', 'HATACHERY', 'FISHARY', 'SCHOOL', 'HOSPITAL', 'RESTURENT', 'OTHERS'];
     const SPECIALTIES = ['HILL WITH OUT KJ VIEW', 'HILL WITH KJ VIEW', 'PLAIN WITH HILL VIEW', 'RIVER SIDE', 'RIVER VIEW', 'FOREST VIEW', 'FOREST SIDE', 'NH 17 SIDE', 'NH 717 SIDE', 'REMOTE AREA', 'BAZAR AREA', 'DONBOSKO AREA', 'HIGH LAND', 'UPS DOWN LAND', 'SWAMP LAND', 'PADDY FIELD', 'OTHERS'];
