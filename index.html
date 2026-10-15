@@ -337,6 +337,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border: 1px solid #e2e8f0;
     }
     .task-num-circle {
       width: 22px;
@@ -352,10 +353,10 @@
       margin-right: 10px;
       flex-shrink: 0;
     }
-    .task-status-text { font-size: 12px; font-weight: 500; color: #475569; flex: 1; }
-    .task-cal-btn { color: #0284c7; font-size: 16px; cursor: pointer; flex-shrink: 0; }
+    .task-status-text { font-size: 12px; font-weight: 500; color: #334155; flex: 1; line-height: 1.35; }
+    .task-cal-btn { color: #0284c7; font-size: 16px; cursor: pointer; flex-shrink: 0; margin-left: 8px; }
 
-    /* --- FLOATING BOTTOM NAVIGATION DOCK --- */
+    /* --- FLOATING BOTTOM NAVIGATION DOCK (FIXED ACTIVE PILL FOR ALL 5 TABS) --- */
     .bottom-dock {
       position: fixed;
       bottom: 0;
@@ -366,12 +367,20 @@
       display: flex;
       align-items: center;
       justify-content: space-around;
-      padding: 0 8px;
+      padding: 0 6px;
       box-shadow: 0 -4px 16px rgba(0,0,0,0.25);
       z-index: 10000;
       border-top: 1px solid rgba(255,255,255,0.08);
     }
     .dock-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex: 1;
+      height: 100%;
+    }
+    .dock-tab-inner {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -380,24 +389,20 @@
       color: #94a3b8;
       font-size: 10px;
       font-weight: 600;
-      cursor: pointer;
-      flex: 1;
-      height: 100%;
+      padding: 6px 10px;
+      border-radius: 22px;
+      transition: all 0.2s ease;
+    }
+    .dock-tab-inner i { font-size: 16px; }
+    .dock-tab-inner.dock-pill-active {
+      background: #0ea643;
+      color: #ffffff;
+      font-weight: 800;
+      padding: 6px 14px;
+      letter-spacing: 0.3px;
+      box-shadow: 0 2px 8px rgba(14, 166, 67, 0.4);
     }
     .dock-divider { width: 1px; height: 26px; background: rgba(255,255,255,0.12); }
-    .dock-pill-active {
-      background: #0ea643;
-      border-radius: 24px;
-      padding: 6px 14px;
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.3px;
-    }
-    .dock-pill-active i { font-size: 17px; margin-bottom: 2px; }
 
     /* --- PAGE VIEWS & FORMS --- */
     .page-view { display: none; padding: 16px; }
@@ -641,7 +646,7 @@
           <i class="fa-regular fa-calendar-check" style="font-size:24px; color:#059669;"></i>
           <div class="today-title-text">
             <span class="today-sup">TODAY'S</span>
-            <span class="today-main-head">TASK LIST</span>
+            <span class="today-main-head">TASK & FOLLOW-UP LIST</span>
           </div>
         </div>
         <div class="today-motto-wrap">
@@ -700,7 +705,7 @@
     <div id="followup-list"></div>
   </div>
 
-  <!-- VIEW 6: CLIENT FORM (EXACT 18 COLUMNS FROM CLIENT TAB) -->
+  <!-- VIEW 6: CLIENT FORM -->
   <div id="view-form-client" class="page-view">
     <div class="form-header-bar">
       <h3 id="client-form-header-title">+ ADD NEW CLIENT</h3>
@@ -770,7 +775,7 @@
     </form>
   </div>
 
-  <!-- VIEW 7: PROPERTY FORM (EXACT 24 COLUMNS FROM PROPERTY TAB) -->
+  <!-- VIEW 7: PROPERTY FORM -->
   <div id="view-form-property" class="page-view">
     <div class="form-header-bar">
       <h3 id="prop-form-header-title">+ ADD NEW PROPERTY</h3>
@@ -870,7 +875,7 @@
     </form>
   </div>
 
-  <!-- VIEW 8: TASK FORM (EXACT 10 COLUMNS FROM TASK TAB) -->
+  <!-- VIEW 8: TASK FORM -->
   <div id="view-form-task" class="page-view">
     <div class="form-header-bar">
       <h3 id="task-form-header-title">+ SCHEDULE TASK</h3>
@@ -910,39 +915,67 @@
     </form>
   </div>
 
-  <!-- FLOATING BOTTOM DOCK -->
+  <!-- FLOATING BOTTOM DOCK (ALL 5 ICONS ALWAYS VISIBLE) -->
   <div class="bottom-dock">
     <div class="dock-item" onclick="switchView('dashboard')">
-      <div class="dock-pill-active" id="dock-tab-dashboard">
+      <div class="dock-tab-inner dock-pill-active" id="dock-tab-dashboard">
         <i class="fa-solid fa-house"></i>
         <span>DASHBOARD</span>
       </div>
     </div>
     <div class="dock-divider"></div>
     <div class="dock-item" onclick="switchView('clients')">
-      <i class="fa-solid fa-users" style="font-size:16px;"></i>
-      <span>Clients</span>
+      <div class="dock-tab-inner" id="dock-tab-clients">
+        <i class="fa-solid fa-users"></i>
+        <span>Clients</span>
+      </div>
     </div>
     <div class="dock-divider"></div>
     <div class="dock-item" onclick="switchView('properties')">
-      <i class="fa-solid fa-house-chimney" style="font-size:16px;"></i>
-      <span>Properties</span>
+      <div class="dock-tab-inner" id="dock-tab-properties">
+        <i class="fa-solid fa-house-chimney"></i>
+        <span>Properties</span>
+      </div>
     </div>
     <div class="dock-divider"></div>
     <div class="dock-item" onclick="switchView('tasks')">
-      <i class="fa-solid fa-clipboard-list" style="font-size:16px;"></i>
-      <span>TASK</span>
+      <div class="dock-tab-inner" id="dock-tab-tasks">
+        <i class="fa-solid fa-clipboard-list"></i>
+        <span>TASK</span>
+      </div>
     </div>
     <div class="dock-divider"></div>
     <div class="dock-item" onclick="switchView('followups')">
-      <i class="fa-solid fa-calendar-days" style="font-size:16px;"></i>
-      <span>Follow-ups</span>
+      <div class="dock-tab-inner" id="dock-tab-followups">
+        <i class="fa-solid fa-calendar-days"></i>
+        <span>Follow-ups</span>
+      </div>
     </div>
   </div>
 
   <script>
-    // Optional default URL (if left as PASTE_YOUR_WEBAPP_URL_HERE, the app will ask you on-screen and save it in your browser!)
     const DEFAULT_API_URL = "https://script.google.com/macros/s/AKfycbw6lxv5g4AWkNdk_vtPNIy8YUhpz4_N229r6Ka6D25LypUVG8FJMO_Jtbs_UFlwm8DZpw/exec";
+
+    // Local IST-safe YYYY-MM-DD formatter (prevents UTC backward date shift!)
+    function getLocalTodayStr() {
+      const now = new Date();
+      const yyyy = now.getFullYear();
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    function formatDateForInput(val) {
+      if (!val) return '';
+      const str = val.toString().trim();
+      if (/^\d{4}-\d{2}-\d{2}$/.test(str)) return str;
+      const d = new Date(str);
+      if (isNaN(d.getTime())) return str.split('T')[0];
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    }
 
     function getActiveApiUrl() {
       const saved = localStorage.getItem('SOIL_SHELTER_API_URL');
@@ -1082,14 +1115,36 @@
       }
     }
 
+    // FIXED: Keeps all 5 bottom navigation icons visible and moves the green pill highlight
     function switchView(viewName) {
       window.scrollTo(0, 0);
       document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
       const target = document.getElementById('view-' + viewName);
       if (target) target.classList.add('active');
 
-      const dashPill = document.getElementById('dock-tab-dashboard');
-      if (dashPill) dashPill.style.display = (viewName === 'dashboard') ? 'flex' : 'none';
+      // Map form views to their parent nav tab
+      const navMap = {
+        'dashboard': 'dashboard',
+        'clients': 'clients',
+        'form-client': 'clients',
+        'properties': 'properties',
+        'form-property': 'properties',
+        'tasks': 'tasks',
+        'form-task': 'tasks',
+        'followups': 'followups'
+      };
+      const activeTab = navMap[viewName] || 'dashboard';
+
+      ['dashboard', 'clients', 'properties', 'tasks', 'followups'].forEach(tab => {
+        const el = document.getElementById('dock-tab-' + tab);
+        if (el) {
+          if (tab === activeTab) {
+            el.classList.add('dock-pill-active');
+          } else {
+            el.classList.remove('dock-pill-active');
+          }
+        }
+      });
     }
 
     function calcTotals() {
@@ -1100,20 +1155,13 @@
       }
     }
 
-    function formatDateForInput(val) {
-      if (!val) return '';
-      try {
-        return new Date(val).toISOString().split('T')[0];
-      } catch (e) { return val; }
-    }
-
     function openAddClientForm() {
       const form = document.getElementById('form-client');
       form.reset();
       document.getElementById('c-id').value = '';
       document.getElementById('client-form-header-title').innerText = "+ ADD NEW CLIENT";
       document.getElementById('client-submit-btn').innerText = "Save Client";
-      document.getElementById('c-date').value = new Date().toISOString().split('T')[0];
+      document.getElementById('c-date').value = getLocalTodayStr();
       document.querySelectorAll('#client-intended-chips .chip-item, #client-specialty-chips .chip-item, #client-location-chips .chip-item')
         .forEach(el => el.classList.remove('selected'));
       ['c-intended-other', 'c-specialty-other', 'c-location-other'].forEach(id => {
@@ -1157,7 +1205,7 @@
       document.getElementById('p-id').value = '';
       document.getElementById('prop-form-header-title').innerText = "+ ADD NEW PROPERTY";
       document.getElementById('prop-submit-btn').innerText = "Save Property";
-      document.getElementById('p-date').value = new Date().toISOString().split('T')[0];
+      document.getElementById('p-date').value = getLocalTodayStr();
       document.querySelectorAll('#prop-specialty-chips .chip-item, #prop-location-chips .chip-item')
         .forEach(el => el.classList.remove('selected'));
       document.querySelectorAll('#owner-details-grid input').forEach(cb => cb.checked = false);
@@ -1209,7 +1257,7 @@
       document.getElementById('t-id').value = '';
       document.getElementById('task-form-header-title').innerText = "+ SCHEDULE TASK";
       document.getElementById('task-submit-btn').innerText = "Save Task";
-      document.getElementById('t-date').value = new Date().toISOString().split('T')[0];
+      document.getElementById('t-date').value = getLocalTodayStr();
       document.getElementById('t-type-other').style.display = 'none';
       switchView('form-task');
     }
@@ -1346,7 +1394,7 @@
       document.getElementById('client-total-badge').innerText = clients.length;
       document.getElementById('prop-total-badge').innerText = props.length;
 
-      const today = new Date().toISOString().split('T')[0];
+      const today = getLocalTodayStr();
       let dueCount = 0;
       let overdueCount = 0;
 
@@ -1362,15 +1410,51 @@
       document.getElementById('cnt-followups').innerText = dueCount;
       document.getElementById('cnt-overdue').innerText = `${overdueCount} Overdue`;
 
-      const todayTasks = tasks.filter(t => t.Date && formatDateForInput(t.Date) === today);
+      // FIXED: Combine Today's Tasks (from Task list) AND Today's Follow-ups (from Client Follow-up list)
+      let combinedTodayItems = [];
+
+      // 1. Tasks scheduled for today OR with Next Follow up Date today
+      tasks.forEach(t => {
+        const tDate = formatDateForInput(t.Date);
+        const tfDate = formatDateForInput(t['Next Follow up Date']);
+        if (tDate === today || tfDate === today) {
+          combinedTodayItems.push({
+            badge: 'TASK',
+            badgeColor: '#ea580c',
+            title: t.Task || 'Scheduled Task',
+            sub: `${t['Time'] || 'Today'} | 📍 ${t.Place || '-'} | Team: ${t['Assigned Team'] || '-'}`,
+            clickAction: `editTask(${t['Task ID']})`
+          });
+        }
+      });
+
+      // 2. Client Follow-ups due today
+      clients.forEach(c => {
+        const fDate = formatDateForInput(c['Next Follow Up']);
+        if (fDate === today) {
+          combinedTodayItems.push({
+            badge: 'FOLLOW-UP',
+            badgeColor: '#7c3aed',
+            title: `Follow up: ${c.Name || 'Client'}`,
+            sub: `Status: ${c['Lead Status'] || 'NEW'} | Team: ${c['Assigned Team'] || '-'} | 📞 ${c.Phone || ''}`,
+            clickAction: `editClient(${c['Client ID']})`
+          });
+        }
+      });
+
       const todayEl = document.getElementById('today-tasks-container');
-      if (todayTasks.length > 0) {
-        todayEl.innerHTML = todayTasks.map((t, idx) => `
-          <div class="today-task-row" style="margin-bottom:6px;">
-            <div style="display:flex; align-items:center;">
-              <div class="task-num-circle">${idx + 1}</div>
-              <span class="task-status-text"><b>${t.Task}</b> (${t['Time'] || 'Today'}) - <i>${t['Assigned Team'] || ''}</i></span>
+      if (combinedTodayItems.length > 0) {
+        todayEl.innerHTML = combinedTodayItems.map((item, idx) => `
+          <div class="today-task-row" style="margin-bottom:8px; cursor:pointer;" onclick="${item.clickAction}">
+            <div style="display:flex; align-items:center; flex:1;">
+              <div class="task-num-circle" style="background:${item.badgeColor};">${idx + 1}</div>
+              <div class="task-status-text">
+                <span style="font-size:9px; font-weight:800; background:${item.badgeColor}; color:#fff; padding:2px 6px; border-radius:6px; margin-right:5px; vertical-align:middle;">${item.badge}</span>
+                <b style="color:#0f172a; font-size:13px;">${item.title}</b>
+                <div style="font-size:11px; color:#64748b; margin-top:2px;">${item.sub}</div>
+              </div>
             </div>
+            <i class="fa-solid fa-chevron-right" style="color:#94a3b8; font-size:12px; margin-left:8px;"></i>
           </div>
         `).join('');
       } else {
@@ -1378,7 +1462,7 @@
           <div class="today-task-row">
             <div style="display:flex; align-items:center;">
               <div class="task-num-circle">1</div>
-              <span class="task-status-text">No tasks scheduled for today.</span>
+              <span class="task-status-text">No tasks or follow-ups scheduled for today (${today}).</span>
             </div>
             <i class="fa-regular fa-calendar-plus task-cal-btn" onclick="openAddTaskForm()"></i>
           </div>
