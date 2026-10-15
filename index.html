@@ -699,9 +699,18 @@
   <!-- VIEW 5: FOLLOW-UPS LIST -->
   <div id="view-followups" class="page-view">
     <div class="form-header-bar">
-      <h3>Follow-ups Due & Overdue</h3>
+      <h3>Follow-up Manager</h3>
       <button class="btn-back" onclick="switchView('dashboard')"><i class="fa-solid fa-arrow-left"></i> Back</button>
     </div>
+    
+    <!-- 4 Quick Filter Tabs: All, Due Today, Overdue, Upcoming -->
+    <div style="display:flex; gap:6px; margin-bottom:14px; overflow-x:auto; padding-bottom:4px;">
+      <button class="chip-item selected" id="f-tab-all" onclick="filterFollowupTab('all')" style="flex:1; text-align:center; padding:8px 10px; font-size:11.5px;">All (<span id="f-cnt-all">0</span>)</button>
+      <button class="chip-item" id="f-tab-today" onclick="filterFollowupTab('today')" style="flex:1; text-align:center; padding:8px 10px; font-size:11.5px;">Due Today (<span id="f-cnt-today">0</span>)</button>
+      <button class="chip-item" id="f-tab-overdue" onclick="filterFollowupTab('overdue')" style="flex:1; text-align:center; padding:8px 10px; font-size:11.5px;">Overdue (<span id="f-cnt-overdue">0</span>)</button>
+      <button class="chip-item" id="f-tab-upcoming" onclick="filterFollowupTab('upcoming')" style="flex:1; text-align:center; padding:8px 10px; font-size:11.5px;">Upcoming (<span id="f-cnt-upcoming">0</span>)</button>
+    </div>
+
     <div id="followup-list"></div>
   </div>
 
